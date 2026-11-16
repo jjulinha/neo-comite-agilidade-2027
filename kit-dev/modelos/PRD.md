@@ -3,7 +3,8 @@ MODELO · Documento de Requisitos de Produto (PRD) · Kit de documentação TI N
 Como usar: copie este arquivo para docs/prd/<chave GDP>_<assunto>.md no repositório do sistema afetado.
 Apague todos os blocos "Orientação" antes de enviar para revisão. Mantenha os títulos das seções.
 Seção que não se aplica: escreva "Não se aplica: <motivo em uma linha>". Seção vazia não é aceita.
-PRD curto (tamanho M): seções 1, 2, 3, 4, 7, 10, 11, 14 e 15 obrigatórias; as demais podem ser "Não se aplica".
+PRD curto (tamanho M): seções 1, 2, 3, 4, 7, 10, 11, 14, 15 e 16 obrigatórias; as demais podem ser "Não se aplica".
+A seção 16 (Aprovações) é obrigatória em todo PRD, porque é a saída exigida para concluir no Upstream (README, seção 2, etapa 5).
 Compatibilidade: o cabeçalho segue o padrão da Visão do Cartão de Crédito v6 (03/11/2026): Dados do Projeto, Versionamento,
 Contexto e objetivos, Papéis, Macroetapas, Regras, Riscos. Os critérios e cenários seguem o guia "Como escrever um card" (InnoviaX v1.0).
 -->
@@ -65,7 +66,7 @@ Contexto e objetivos, Papéis, Macroetapas, Regras, Riscos. Os critérios e cen�
 
 > **Orientação.** Entra: um a três objetivos de negócio, cada um com métrica que alguém consegue medir sem abrir o código. Toda linha de base cita a fonte e a data. Não entra: objetivo técnico ("migrar para a versão X"), que vai para o ADR; meta sem linha de base. Se a linha de base não existe, registre [A CONFIRMAR] e diga quem mede.
 >
-> **Exemplo:** Objetivo: comparar a decisão do motor com a decisão da planilha antes de automatizar o pagamento. Métrica: propostas em que motor e planilha concordam ÷ propostas avaliadas no modo sombra. Linha de base: não existe [A CONFIRMAR: o critério de avanço da Fase 2, citado no DS-507, não está descrito]. Meta: definida pela área Financeiro.
+> **Exemplo:** Objetivo: comparar a decisão do motor com a decisão da planilha antes de automatizar o pagamento. Métrica: propostas em que motor e planilha concordam ÷ propostas avaliadas no modo sombra **[ALÉM DA FONTE — decisão do usuário: leitura de "comparar com a planilha durante o modo sombra", DS-507]**. Linha de base: não existe [A CONFIRMAR: o critério de avanço da Fase 2, citado no DS-507, não está descrito]. Meta: definida pela área Financeiro.
 
 ---
 

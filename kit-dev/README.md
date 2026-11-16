@@ -27,10 +27,11 @@ O kit resolve um problema medido, não estético. Na exportação do Downstream 
 | Nenhuma descrição | 80 de 363 | campo vazio |
 | História no formato "eu quero" | 23 de 363 | texto "eu quero" |
 | Critério de aceite | 21 de 363 | "critério(s) de aceite" |
-| Cenário com "Dado" e "Então" | 4 de 363 | as duas palavras no texto |
+| Cenário com "dado … então" | 7 de 363 | expressão regular sem diferenciar maiúsculas: `\bdado\b` e `\bentão\b` no mesmo texto. Com maiúsculas exatas ("Dado", "Então") o resultado cai para 4 (DS-299 a DS-302); a medição recorrente usa o critério sem diferenciar maiúsculas |
 | DoR | 14 de 363 | "DoR" ou "Definition of Ready" |
 | DoD | 0 de 363 | "DoD" ou "Definition of Done" |
 | Bug com causa raiz | 1 de 31 Bugs | "causa raiz" |
+| Bug com item associado (card de origem) | 1 de 31 Bugs | campo "itens associados" preenchido; nenhum Bug tem os dois (causa raiz e item associado) |
 
 E a rastreabilidade entre os boards é parcial: 15 dos 35 épicos do Downstream têm item do GDP associado (`downstream_16-11.csv`, 16/11/2026 10h26), e o GDP-76 (Quitação), em Downstream, não aponta para nenhum épico (`gdp_16-11.csv`, 16/11/2026 9h51).
 
@@ -52,9 +53,9 @@ GDP ──► Upstream ───────────────────
 
 | Etapa | Board e status no Jira | Documento do kit | Quem escreve | Quem aprova | Saída que libera a etapa seguinte |
 |---|---|---|---|---|---|
-| 1. Entrada da demanda | Gestão de Projetos (GDP), Backlog Upstream → Priorização Upstream | Nenhum. Usa o roteiro de abertura do GDP (Solicitante, Área solicitante, Contexto da solicitação, Descrição do problema ou necessidade, Como o processo funciona atualmente, Consequências do cenário atual), já usado em 62 de 90 itens (`gdp_16-11.csv`, 16/11/2026 9h51) | Área solicitante | Gestão da TI (priorização) | Item GDP priorizado |
+| 1. Entrada da demanda | Gestão de Projetos (GDP), Backlog Upstream → Priorização Upstream | Nenhum. Usa o roteiro de abertura do GDP (Solicitante, Área solicitante, Contexto da solicitação, Descrição do problema ou necessidade, Como o processo funciona atualmente, Consequências do cenário atual), já usado em 62 de 90 itens segundo o D2 (`gdp_16-11.csv`, 16/11/2026 9h51; o D2 não descreve o critério da contagem: na recontagem deste kit, 60 itens trazem os quatro campos de conteúdo, de "Contexto da solicitação" a "Consequências do cenário atual", e 66 trazem ao menos "Contexto da solicitação") | Área solicitante | Gestão da TI (priorização) | Item GDP priorizado |
 | 2. Análise funcional | Upstream: Análise funcional | **PRD** (seções 1 a 8) | Analista funcional / PO | — | PRD em revisão |
-| 3. Prototipação | Upstream: Prototipação | PRD, seção 9 (fluxo proposto) com link do protótipo | Analista / UX | Área solicitante | Protótipo validado |
+| 3. Prototipação | Upstream: Prototipação | PRD, seção 6 (fluxo atual × proposto, link do protótipo) | Analista / UX | Área solicitante | Protótipo validado |
 | 4. Especificação técnica + testes | Upstream: Especificação técnica + testes | PRD completo + **ADR** quando houver decisão técnica, de padrão ou de documentação | PO + tech lead | PO (PRD); tech lead e comitê, conforme o caso (ADR) | PRD aprovado; ADR aceito |
 | 5. Aprovação | Upstream: Aprovação solicitantes → Concluído Upstream | PRD com seção de aprovações preenchida e **tamanho estimado pela régua** (Políticas Explícitas V1, seção 3.8: dimensionamento inicial obrigatório ao concluir no Upstream) | PO | Área solicitante | Demanda pronta para o Downstream |
 | 6. Planejamento | Downstream: criação do épico (projeto = épico, decisão de 13/11/2026) | **Plano de Implementação** | Tech lead + PO | PO | Épico e cards criados no Jira |
@@ -75,7 +76,7 @@ O tamanho é o da régua de tamanho × tempo (`D1-pool/regua-tamanho-tempo.md`, 
 |---|---|---|---|---|
 | **PP** | 1–2 | **Só o card**, com o bloco 1 apontando para o item GDP ou US de origem | 16 / 29 (faixa PP–M agregada) | Ajuste pequeno sem tela nem integração: Upstream de referência 5 / 10 dias úteis (proposta da régua) |
 | **P** | 3–4 | **Só os cards**, todos com a mesma referência de origem | 16 / 29 | Se houver regra de negócio nova que vale para mais de um card, sobe para PRD curto |
-| **M** | 5–9 | **PRD curto + Plano curto** | 16 / 29 | PRD curto: seções 1, 2, 3, 4, 7, 10, 11, 14 e 15 do modelo obrigatórias; as demais com "não se aplica" e o motivo |
+| **M** | 5–9 | **PRD curto + Plano curto** | 16 / 29 | PRD curto: seções 1, 2, 3, 4, 7, 10, 11, 14, 15 e 16 do modelo obrigatórias. Plano curto: seções 1, 2, 3, 4, 5, 7, 8, 9, 11 e 12. As demais com "Não se aplica" e o motivo |
 | **G** | 10–20 | **PRD completo + Plano com entregas + ADR se houver decisão** | 66 (piso) / 86 | A régua recomenda avaliar a quebra de todo G em entregas M, porque os três G abertos já passaram de 66 dias úteis |
 | **GG** | > 20 | **Quebrar antes de documentar.** Um PRD-mãe (visão do todo, regras comuns, fora de escopo) e **um Plano por entrega** (cada entrega G ou M, com seu épico) | não estimar | Regra proposta da régua: GG não entra no pool sem quebra |
 
@@ -85,7 +86,7 @@ Referência do Upstream para todas as classes (da criação à conclusão no Ups
 
 - Quitação Fase 1 (DS-418, Konsig, 2 cards) → PP: só os cards.
 - Quitação Fase 2 (DS-500, Konsig, 8 cards) → M: PRD curto, já existente na prática como "Documento de Requisitos V04", e Plano curto.
-- Correção de vulnerabilidades (DS-65, Konsig, 20 cards) → G: PRD + Plano + ADR para cada mudança de padrão de segurança.
+- Correção de vulnerabilidades (DS-65, Konsig, 20 cards) → G: PRD + Plano + ADR para cada mudança de padrão de segurança. Épico técnico, sem item GDP nem US: os documentos são nomeados pela chave do épico DS (seção 4.2).
 - Parceiros, Entrega 1 (DS-251, NeoKonsig, 83 cards) → GG: o modelo pede PRD-mãe do Módulo de Parceiros e um Plano por entrega.
 - Cartão de crédito consignado (GDP-38, Konsig legado, decisão de 13/11/2026) → GG: a Visão do Cartão v6 (03/11/2026) faz o papel de PRD-mãe, depois de corrigida para o Konsig legado; cada bloco do estimador vira uma entrega com Plano próprio.
 
@@ -111,7 +112,7 @@ Os documentos ficam no repositório do sistema afetado, na pasta `docs/`, para q
 ├── CLAUDE.md                         ← instruções para assistentes de IA (modelo em modelos/CLAUDE.md)
 └── docs/
     ├── prd/        GDP-76_quitacao-fase-2-motor.md
-    ├── adr/        ADR-0001_DS-412_log-no-formato-ecs.md
+    ├── adr/        ADR-0001_GDP-76_pagamento-quitacao-pagauto-api-bb.md
     ├── planos/     DS-500_plano-quitacao-fase-2.md
     └── README.md   índice: chave do Jira, título, status, versão
 ```
@@ -124,10 +125,13 @@ Os documentos ficam no repositório do sistema afetado, na pasta `docs/`, para q
 
 | Documento | Padrão do nome | Exemplo |
 |---|---|---|
-| PRD | `<chave GDP>_<assunto-em-minúsculas>.md`. Sem item GDP (demanda técnica): `<chave US>_...` | `GDP-76_quitacao-fase-2-motor.md` |
+| PRD | `<chave GDP>_<assunto-em-minúsculas>.md`. Sem item GDP (demanda técnica): `<chave US>_...`. Sem GDP nem US (épico técnico): `<chave do épico DS>_...` | `GDP-76_quitacao-fase-2-motor.md` · `DS-65_correcao-de-vulnerabilidades.md` |
 | PRD de entrega de um GG | `<chave GDP>_E<n>_<assunto>.md` | `GDP-29_E1_parceiros-ficha-cadastro.md` |
 | ADR | `ADR-<número sequencial de 4 dígitos por repositório>_<chave do item que motivou>_<assunto>.md` | `ADR-0003_US-43_pipeline-ci-konsig.md` |
 | Plano | `<chave do épico DS>_plano-<assunto>.md` | `DS-500_plano-quitacao-fase-2.md` |
+| ADR de processo sem item no Jira | `ADR-<nnnn>_CHAVE-A-CONFIRMAR_<assunto>.md`, até que se abra uma Tarefa para a mudança; então o arquivo é renomeado com a chave | `ADR-0001_CHAVE-A-CONFIRMAR_nota-vigencia-fluxo-v3.md` |
+
+A árvore acima é a do repositório do **Konsig**: os três arquivos são da Quitação (GDP-76, DS-500). Um ADR sobre o padrão de log ECS (DS-511, "Configurar logs estruturados no padrão ECS na API", `downstream_16-11.csv`, 16/11/2026 10h26) iria para o repositório do **NeoKonsig**, com numeração própria, porque o DS-511 é do NeoKonsig.
 
 ### 4.3 Versionamento e status
 
@@ -211,6 +215,11 @@ Os itens 1 a 6 são proposta **[ALÉM DA FONTE — decisão do usuário]** e dev
 | `modelos/PLANO-DE-IMPLEMENTACAO.md` | Do PRD ao épico e aos cards, com teste, deploy e rollback | M, G e cada entrega de um GG |
 | `modelos/CARD.md` | Card no padrão do guia InnoviaX (dez blocos) | Todo card |
 | `modelos/CLAUDE.md` | Instruções para assistentes de IA no repositório do sistema | Uma vez por repositório (Konsig e NeoKonsig têm arquivos distintos) |
+| `exemplos/quitacao/GDP-76_quitacao-fase-2-motor.md` | PRD curto preenchido (Quitação Fase 2, Konsig, M). Ilustrativo: o Documento de Requisitos V04 (26/10/2026) não foi recebido; o conteúdo vem dos cards do DS-500 | Referência de preenchimento do modelo de PRD |
+| `exemplos/quitacao/DS-500_plano-quitacao-fase-2.md` | Plano curto preenchido do mesmo épico | Referência de preenchimento do modelo de Plano |
+| `exemplos/quitacao/ADR-0001_GDP-76_pagamento-quitacao-pagauto-api-bb.md` | ADR técnico: componente de pagamento da quitação | Referência de ADR técnico |
+| `exemplos/quitacao/ADR-0002_GDP-76_ordem-das-fases-quitacao.md` | ADR técnico: ordem das fases, com a integração bancária por último | Referência de "uma decisão por ADR" |
+| `exemplos/processo/ADR-0001_CHAVE-A-CONFIRMAR_nota-vigencia-fluxo-v3.md` | ADR de **mudança de documentação**: nota de vigência no Fluxo de Desenvolvimento TI V3 | Referência de ADR de documentação ou de processo |
 
 ---
 
@@ -226,15 +235,35 @@ Os itens 1 a 6 são proposta **[ALÉM DA FONTE — decisão do usuário]** e dev
 
 ## 9. Como medir a adoção do kit (insumo para a Demanda 3)
 
-Os indicadores abaixo podem ser medidos já com as exportações do Jira, sem ferramenta nova. A linha de base é a da seção 1 (`downstream_16-11.csv`, 16/11/2026 10h26). As metas são **[meta é proposta — decisão da gestora]** e devem ser conciliadas com `D3-indicadores/D3-indicadores-2027.md` para não criar conjunto paralelo.
+Os indicadores abaixo podem ser medidos com as exportações do Jira, sem ferramenta nova (`downstream_16-11.csv`, 16/11/2026 10h26). A rastreabilidade ao GDP **não ganha indicador próprio**: ela já é o indicador P3 do `D3-indicadores/D3-indicadores-2027.md` ("Rastreabilidade do trabalho ao GDP"), e o kit só acrescenta um desdobramento por épico. As metas são **[ALÉM DA FONTE — decisão do usuário]** e devem ser conciliadas com o D3 para não criar conjunto paralelo.
 
-| Indicador | Fórmula | Linha de base (16/11/2026) | Meta proposta para o fim do 1º trimestre de 2027 |
-|---|---|---|---|
-| Cards com descrição | cards com descrição ÷ cards (Tarefa, História, Bug) criados no período | 283 de 363 (78,0%) | 100% (já exigido para concluir pela regra 3 da S19) |
-| Cards com critério de aceite | cards com bloco de critérios ÷ cards criados no período | 21 de 363 (5,8%) | 80% das Histórias |
-| Cards com cenário BDD | cards com "Dado … Então" ÷ cards criados no período | 4 de 363 (1,1%) | 60% das Histórias |
-| Bugs com card de origem e causa raiz | Bugs com os dois ÷ Bugs criados no período | 1 de 31 (3,2%) | 70% |
-| Épicos ligados ao GDP | épicos com item GDP associado ÷ épicos criados no período | 15 de 35 (42,9%) | 100% dos épicos de projeto (épicos técnicos sem GDP registrados como tal) |
-| Demandas M ou maiores com PRD | épicos M+ com link para PRD ÷ épicos M+ abertos no período | não medido (o PRD não existe ainda) | 100% dos novos |
+### 9.1 Indicadores e linha de base
 
-Contagem por busca de texto na descrição, sem leitura manual; pode haver falso positivo ou negativo. A medição recorrente deve usar o mesmo critério para manter a comparação.
+O numerador e o denominador da linha de base são os mesmos da meta. Onde a meta fala em Histórias, a linha de base também é sobre Histórias.
+
+| Indicador | Fórmula | Linha de base: estoque do board (cards criados de 19/06 a 16/11/2026) | Sprint 19 (parcial, criados de 09/11 a 16/11/2026) | Meta proposta para o fim do 1º trimestre de 2027 |
+|---|---|---|---|---|
+| Cards com descrição | cards com descrição ÷ cards (Tarefa, História, Bug) criados no período | 283 de 363 (78,0%) | 60 de 63 (95,2%) | 100% (já exigido para concluir pela regra 3 da S19) |
+| Histórias com critério de aceite | Histórias com "critério(s) de aceite" ÷ Histórias criadas no período | 14 de 117 (12,0%) | 8 de 19 (42,1%) | 80% |
+| Histórias com cenário BDD | Histórias com "dado … então" (sem diferenciar maiúsculas) ÷ Histórias criadas no período | 3 de 117 (2,6%) | 1 de 19 (5,3%) | 60% |
+| Bugs com causa raiz | Bugs com "causa raiz" ÷ Bugs criados no período | 1 de 31 (3,2%) | 0 de 2 | 70% |
+| Bugs com card de origem (desdobramento) | Bugs com item associado ÷ Bugs criados no período | 1 de 31 (3,2%); com causa raiz **e** item associado: 0 de 31 | 0 de 2 | 70% |
+| P3 · Rastreabilidade ao GDP (indicador do D3) | conforme o D3 | 65 de 91 cards de épico (S15–S18); 56,2% na S19 (D3) | — | a do D3: 100% dos épicos abertos em 2027 |
+| P3 · desdobramento por épico | épicos com item GDP associado ÷ épicos | 15 de 35 (42,9%) | — | segue a meta do P3 (épicos técnicos sem GDP registrados como tal) |
+| Demandas M ou maiores com PRD | épicos M+ com link para PRD ÷ épicos M+ abertos no período | não medido (o PRD não existe ainda) | — | 100% dos novos |
+
+### 9.2 Série por sprint de criação (para a apresentação)
+
+A linha de base da seção 9.1 é **estoque**: cobre todo o board desde 19/06/2026. A apresentação pede **período**, por isso a série abaixo reparte os mesmos cards pela sprint em que foram criados. Regra de atribuição: sprint = 18 + piso((data de criação − 26/10/2026) ÷ 14 dias). Fonte: `downstream_16-11.csv`, 16/11/2026 10h26.
+
+| Sprint de criação | Cards (Tarefa, História, Bug) | Com descrição | Com critério de aceite | Com "dado … então" | Histórias com critério de aceite |
+|---|---|---|---|---|---|
+| S15 | 45 | 40 | 1 | 0 | 0 de 15 |
+| S16 | 46 | 30 | 1 | 4 | 0 de 15 |
+| S17 | 24 | 15 | 0 | 0 | 0 de 3 |
+| S18 | 72 | 61 | 3 | 2 | 3 de 21 |
+| S19 (parcial, até 16/11) | 63 | 60 | 9 | 1 | 8 de 19 |
+
+A S19 é a primeira sprint depois da adoção do guia "Como escrever um card" como tutorial oficial (13/11/2026). A alta de critério de aceite nas Histórias da S19 coincide com essa adoção e com a regra 1 do experimento (História só pelo PO), mas a sprint ainda está em andamento e a série não permite separar as duas causas.
+
+Contagem por busca de texto na descrição, sem leitura manual; pode haver falso positivo ou negativo. A medição recorrente deve usar o mesmo critério, inclusive a busca sem diferenciar maiúsculas, para manter a comparação.

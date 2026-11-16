@@ -185,6 +185,8 @@ O critério de escolha foi este: entram os documentos sem os quais a IA erraria 
 
 **Pré-requisito da T1 no Konsig legado.** A Konsig Arquitetura (`1u3NsVaAXvnayi6I7eCJ4z41fC2yh1naP`, existe com ID, não recebida) é entrada obrigatória da T1 sempre que a demanda for do cartão ou da reestruturação da esteira, que entram no Konsig legado (decisão de 13/11/2026). Ela não ocupa posição no conjunto mínimo porque não exige redação, apenas o recebimento e a conferência da atualidade, mas a T1 para esses dois temas não começa sem ela **[ALÉM DA FONTE — decisão do usuário]**.
 
+> **Kit pronto para os devs (16/11/2026):** os modelos de documento de origem estão em `kit-dev/`: **PRD** (o quê e por quê), **ADR** (decisão técnica ou mudança de documentação/processo), **Plano de Implementação** (PRD → épicos e cards, com classe PP a GG), **Card** (guia InnoviaX com notas Neo) e **CLAUDE.md** (contexto fixo para a IA no repositório). Exemplo preenchido: Quitação Fase 2 (GDP-76). Situação: proposta, sem aprovação do comitê.
+
 ### Fica para depois, e por quê
 
 | Documento | Motivo |
