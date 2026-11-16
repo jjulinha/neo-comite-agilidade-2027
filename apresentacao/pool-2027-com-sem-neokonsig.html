@@ -113,7 +113,7 @@ details p{margin:6px 0;color:var(--ink2);max-width:95ch}
 </div></header>
 
 <nav class="toc" aria-label="Seções"><div class="wrap">
-  <a href="#resposta">Resposta</a><a href="#pool">Pool</a><a href="#tempo">Linha do tempo</a><a href="#trimestres">Capacidade</a><a href="#devs">Por dev</a><a href="#tamanhos">Tamanhos</a><a href="#neokonsig">O que sai</a><a href="#riscos">Riscos</a><a href="#decisoes">Decisões</a><a href="#outras">Outras entregas</a>
+  <a href="#resposta">Resposta</a><a href="#pool">Pool</a><a href="#tempo">Linha do tempo</a><a href="#trimestres">Capacidade</a><a href="#devs">Por dev</a><a href="#indicadores">Indicadores</a><a href="#tamanhos">Tamanhos</a><a href="#neokonsig">O que sai</a><a href="#riscos">Riscos</a><a href="#decisoes">Decisões</a><a href="#outras">Outras entregas</a>
   <div class="controls">
     <label for="prem">Premissa</label>
     <select id="prem">
@@ -193,6 +193,14 @@ details p{margin:6px 0;color:var(--ink2);max-width:95ch}
     <li><b>Demanda nova:</b> entra na folga de nov e dez/27 ou desloca a fila; nunca o compromisso.</li></ul></div>
 </div></section>
 
+<section id="indicadores"><div class="wrap">
+  <h2>Indicadores de 2027: como estão hoje</h2>
+  <p class="lead">Os 8 indicadores propostos para 2027, medidos com o Jira de 16/11/2026 (Sprints 15 a 19; a S19 vai até 20/11). Onde a exportação não traz o dado, o valor vem da Review da Sprint 18 ou fica marcado como linha de base a levantar. Metas são propostas para decisão da Dani.</p>
+  <div class="grid2" id="indGrid"></div>
+  <div class="panel" style="margin-top:18px"><h3>Sinal do experimento da Sprint 19 (responsável obrigatório e classificação para concluir)</h3><div id="expChart"></div>
+    <p class="foot">% dos cards concluídos em cada sprint com o campo preenchido. Jira Downstream, 16/11/2026 10h26. S19 parcial.</p></div>
+</div></section>
+
 <section id="tamanhos"><div class="wrap">
   <h2>Como foi dimensionado cada item sem escopo</h2>
   <p class="lead">PP 1–2 cards · P 3–4 · M 5–9 · G 10–20 · GG mais de 20 (cards de épico do Downstream; tamanhos típicos medidos em épicos concluídos: PP 2, P 3, M 5, G 12). Para itens sem escopo escrito, o tamanho veio do título, da categoria, de itens ligados e de épicos parecidos já medidos. Cada um traz as perguntas que o solicitante precisa responder para confirmar.</p>
@@ -237,7 +245,7 @@ details p{margin:6px 0;color:var(--ink2);max-width:95ch}
   <h2>Outras entregas do comitê</h2>
   <div class="grid3">
     <div class="panel"><h3>Régua de tamanho × tempo</h3><ul class="tight"><li>Upstream: cerca de 6 semanas para qualquer tamanho; até 9 se atrasar.</li><li>Downstream PP a M: cerca de 3 semanas. G: 3 meses ou mais. GG: dividir antes de começar.</li><li>9 demandas paradas no Upstream há mais de 2 sprints.</li></ul></div>
-    <div class="panel"><h3>Indicadores 2027</h3><ul class="tight"><li>F1 Vazão · F2 Ciclo mediano · F3 Tempo pós-código · F4 Entregas sem QA</li><li>P1 Capacidade de projeto · P2 Aderência do pool · P3 Rastreabilidade ao GDP</li><li>S1 SLA (ligado ao bônus: mudança só com Dani e RH)</li></ul></div>
+    <div class="panel"><h3>Indicadores 2027</h3><ul class="tight"><li>Medidos na seção Indicadores desta página: 4 medidos no Jira, 2 pela Review S18, 2 com linha de base a levantar.</li><li>S1 SLA ligado ao bônus: mudança só com Dani e RH.</li></ul></div>
     <div class="panel"><h3>Documentos para a IA</h3><ul class="tight"><li>1. Regra de uso de IA e anonimização · 2. Guia de cards · 3. Políticas Explícitas + glossário</li><li>4. Fluxo de Desenvolvimento V3 · 5. Inventário de Sistemas · 6. Modelo de visão e requisito</li></ul></div>
   </div>
   <p class="foot" style="margin-top:20px">Fontes: Jira, GDP e Upstream (16/11/2026 9h51) e Downstream (16/11/2026 10h26); Review da Sprint 18 (06/11/2026); Visão do Cartão v6 (03/11/2026); PDTI 2026–2028 (20/08/2026); Previsão de entregas V02 (06/11/2026). Planilhas no repositório privado, pasta D1-pool: pool-2027-plano.xlsx (leitura) e pool-desenvolvimento-2027.xlsx (modelo).</p>
@@ -995,7 +1003,7 @@ const ALL = {"cen": {"base": {"com": {"fim_comp": "2027-12-06", "fim_cartao": "2
 "2027-11",
 "2027-12"
 ]
-}; const DATA=ALL.cen, DET=ALL.det;
+}; const IND = {"ind": [{"cod": "F1", "nome": "Vazão por sprint", "grupo": "Fluxo", "un": "cards", "serie": [35, 38, 27, 53, 40], "atual": "38,25 (média S15–S18)", "meta": "Média de 4 sprints ≥ 38,25 com o mesmo time", "st": "medido", "fonte": "Jira Downstream, 16/11/2026 10h26. S19 parcial (até 16/11).", "leitura": "S19 já tem 40 cards a 4 dias do fim: acima da média."}, {"cod": "F2", "nome": "Ciclo mediano de uma entrega", "grupo": "Fluxo", "un": "horas úteis", "serie": null, "atual": "63h por entrega · História 118h (S18)", "meta": "História abaixo de 75h (cabe na sprint)", "st": "review", "fonte": "Review da Sprint 18 (06/11/2026). A exportação do Jira não traz histórico de status.", "leitura": "Uma História típica atravessa a sprint: a regra \"quebra se não chega a Code Review em 5 dias\" ataca isso."}, {"cod": "F3", "nome": "Tempo nas etapas depois do código", "grupo": "Fluxo", "un": "horas úteis (média)", "serie": null, "atual": "Code Review 20h · QA 41h · Aprovação PO 26h (S18)", "meta": "QA abaixo de 10h · Code Review até 8h · Aprovação PO até 18h", "st": "review", "fonte": "Review da Sprint 18, slide 8 (S15–S18: QA 30, 18, 7, 41h).", "leitura": "QA foi de 7h para 41h da S17 para a S18. Com mais devs no Konsig, é o indicador a vigiar."}, {"cod": "F4", "nome": "Entregas sem QA", "grupo": "Fluxo", "un": "% com testador preenchido", "serie": [57.1, 50.0, 29.6, 24.5, 47.5], "atual": "12 novas funcionalidades e melhorias sem QA (S18) · 27 de 67 entregas no total (40%)", "meta": "Zero funcionalidade ou melhoria sem QA ou sem dispensa registrada", "st": "parcial", "fonte": "Review S18, slide 11 (06/11/2026). Barras: % dos cards concluídos com Testador preenchido (Jira 16/11/2026).", "leitura": "Com a regra de responsável obrigatório da S19, o Testador preenchido subiu de 24,5% para 47,5%."}, {"cod": "P1", "nome": "Capacidade de projeto realizada", "grupo": "Portfólio", "un": "cards de épico", "serie": [18, 24, 15, 34, 32], "atual": "22,75 por sprint (média S15–S18)", "meta": "Média trimestral ≥ 22,75; Konsig 8,25 → 14,75 após Parceiros", "st": "medido", "fonte": "Jira Downstream, 16/11/2026 10h26.", "leitura": "S19 já tem 32 cards de épico: o trabalho sem épico caiu para 20% dos concluídos."}, {"cod": "P2", "nome": "Aderência do pool trimestral", "grupo": "Portfólio", "un": "% dos projetos previstos entregues", "serie": null, "atual": "Plano prevê 17 projetos entregues em T1 2027", "meta": "≥ 80% dos projetos previstos no trimestre", "st": "a levantar", "fonte": "Pool 2027 v3 (plano sem NeoKonsig, 16/11/2026).", "leitura": "Primeira medição em abr/2027, comparando o plano de T1 com o Jira."}, {"cod": "P3", "nome": "Rastreabilidade ao GDP", "grupo": "Portfólio", "un": "% dos cards de épico com épico ligado ao GDP", "serie": [61.1, 66.7, 80.0, 76.5, 56.2], "atual": "71% (65 de 91 cards, S15–S18)", "meta": "100% dos épicos abertos a partir de jan/2027 ligados ao GDP", "st": "medido", "fonte": "Jira Downstream e épicos, 16/11/2026 10h26.", "leitura": "Na S19 caiu para 56%: épicos técnicos (deploy, regressão, GitLab) não têm item no GDP."}, {"cod": "S1", "nome": "Atendimentos no prazo do SLA", "grupo": "Serviço", "un": "% no prazo, por prioridade", "serie": null, "atual": "Linha de base a levantar", "meta": "Sem mudança: gatilho de 70%, apuração semestral (PDTI). Mudança só com a Dani e o RH (ligado ao bônus).", "st": "a levantar", "fonte": "PDTI 2026–2028, slides 14 e 15. Relatório de metas/SLA do 1º semestre não recebido.", "leitura": "Pedir o relatório de SLA do 1º semestre de 2026 para fechar a linha de base."}], "exp": {"sp": ["15", "16", "17", "18", "19"], "testador": [57.1, 50.0, 29.6, 24.5, 47.5], "revisor": [51.4, 34.2, 29.6, 24.5, 40.0], "categorias": [88.6, 86.8, 92.6, 96.2, 100.0], "sem_epico": [48.6, 36.8, 44.4, 35.8, 20.0]}}; const DATA=ALL.cen, DET=ALL.det;
 const MES=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
 const md=s=>{if(!s)return 'depois de 2027';const d=new Date(s+'T12:00:00');return MES[d.getMonth()]+'/'+String(d.getFullYear()).slice(2)};
 const PER=['Até dez/2026','T1 2027','T2 2027','T3 2027','T4 2027'];
@@ -1068,6 +1076,17 @@ function detalhes(){const s=DATA.base.sem.itens.concat(DATA.base.com.itens);cons
   s.forEach(x=>{if(!DET[x.k]||seen[x.k])return;seen[x.k]=1;const d=DET[x.k];
     h+=`<details><summary><span class="sz prov">${x.t}</span> ${nome(x.n)} <span class="small">· ${x.k} · ${fmt(x.c)} cards (${x.f}) · confiança ${x.cf}</span></summary><p><b>Base:</b> ${d.base}</p><p><b>Perguntas ao solicitante:</b> ${d.perg}</p>${d.quebra?`<p><b>Quebra sugerida:</b> ${d.quebra}</p>`:''}</details>`});
   document.getElementById('detList').innerHTML=h}
+function indicadores(){const ST={'medido':['p-ok','medido no Jira'],'parcial':['p-warn','medido em parte'],'review':['p-warn','da Review S18'],'a levantar':['p-mut','linha de base a levantar']};
+  document.getElementById('indGrid').innerHTML=IND.ind.map(x=>{const s=ST[x.st];let sp='';
+    if(x.serie){const W=260,H=70,max=Math.max(...x.serie)*1.15,bw=W/x.serie.length;sp=`<svg viewBox="0 -16 ${W} ${H+32}" width="100%" style="max-width:320px" role="img" aria-label="Série ${x.nome}">`+x.serie.map((v,i)=>{const h=H*v/max;return `<rect x="${i*bw+6}" y="${H-h}" width="${bw-12}" height="${h}" rx="2" fill="var(${i===4?'--accent2':'--accent'})"/><text x="${i*bw+bw/2}" y="${H-h-3}" text-anchor="middle" style="fill:var(--ink);font-weight:600">${String(v).replace('.',',')}</text><text x="${i*bw+bw/2}" y="${H+13}" text-anchor="middle">S${IND.exp.sp[i]}${i===4?'*':''}</text>`}).join('')+'</svg>'}
+    return `<div class="panel"><h3><span class="tag">${x.cod}</span> ${x.nome} <span class="pill ${s[0]}" style="margin-left:auto">${s[1]}</span></h3>
+      <div class="small">${x.grupo} · ${x.un}</div><p style="margin:8px 0 4px"><b>Hoje:</b> ${x.atual}</p>${sp}<p style="margin:6px 0"><b>Meta proposta:</b> ${x.meta}</p><p class="small" style="margin:4px 0">${x.leitura}</p><p class="foot">${x.fonte}</p></div>`}).join('');
+  const E=IND.exp,ser=[['Testador',E.testador,'--g2'],['Revisor',E.revisor,'--g3'],['Categorias',E.categorias,'--g1'],['Sem épico',E.sem_epico,'--g6']];
+  const W=560,H=200,ml=40,mt=10,mb=28,x=i=>ml+i*(W-ml-20)/4,y=v=>mt+(H-mt-mb)*(1-v/100);
+  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Campos preenchidos por sprint">`;[0,25,50,75,100].forEach(v=>s+=`<line class="axis" x1="${ml}" x2="${W-20}" y1="${y(v)}" y2="${y(v)}"/><text x="${ml-6}" y="${y(v)+4}" text-anchor="end">${v}%</text>`);
+  E.sp.forEach((p,i)=>s+=`<text x="${x(i)}" y="${H-8}" text-anchor="middle">S${p}${i===4?'*':''}</text>`);
+  ser.forEach(([n,v,c])=>{s+=`<polyline fill="none" stroke="var(${c})" stroke-width="2.5" points="${v.map((d,i)=>x(i)+','+y(d)).join(' ')}"/>`+v.map((d,i)=>`<circle cx="${x(i)}" cy="${y(d)}" r="3.5" fill="var(${c})"><title>${n} S${E.sp[i]}: ${d}%</title></circle>`).join('')});
+  document.getElementById('expChart').innerHTML=s+'</svg><div class="legend">'+ser.map(([n,v,c])=>`<span><i style="background:var(${c})"></i>${n}: ${String(v[3]).replace('.',',')}% → ${String(v[4]).replace('.',',')}%</span>`).join('')+'</div>'}
 function absorcao(){const A=ABS;const ms=A.meses;const M=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
   let h=`<thead><tr><th class="nm">Projeto</th><th>Tam.</th><th class="n">Cards</th>${ms.map(m=>`<th>${M[+m.slice(5)-1]}<br>${m.slice(2,4)}</th>`).join('')}</tr></thead><tbody>`;const tot={};
   A.rows.filter(r=>r.linha==='Konsig').forEach(r=>{h+=`<tr><td class="nm">${nome(r.nome)}</td><td><span class="sz">${r.tamanho==='programa'?'—':r.tamanho}</span></td><td class="n">${fmt(r.cards)}</td>`+ms.map(m=>{const v=r.dev_mes[m]||0;tot[m]=(tot[m]||0)+v;return `<td class="n" style="${v>0.05?`background:color-mix(in srgb, var(${r.grupo==='Fila'?'--accent2':'--accent'}) ${Math.round(20+60*Math.min(v,4.5)/4.5)}%, transparent)`:''}">${v>0.05?fmt(v):''}</td>`}).join('')+'</tr>'});
@@ -1077,5 +1096,5 @@ document.getElementById('prem').addEventListener('change',e=>{prem=e.target.valu
 document.getElementById('fg').addEventListener('change',poolTable);
 document.getElementById('btnApr').addEventListener('click',e=>{const on=document.body.classList.toggle('apresentar');e.currentTarget.classList.toggle('on',on);e.currentTarget.setAttribute('aria-pressed',on)});
 try{const p=localStorage.getItem('prem2');if(p&&DATA[p]){prem=p;document.getElementById('prem').value=p}}catch(_){}
-detalhes();absorcao();render();
+detalhes();absorcao();indicadores();render();
 </script>

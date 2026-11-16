@@ -220,6 +220,30 @@ Todas as metas da tabela são **[meta é proposta — decisão da Dani]**. As fi
 
 ---
 
+### 5.4 Medição atual · Sprints 15 a 19 (Jira de 16/11/2026, 10h26)
+
+Série por sprint para a apresentação (seção **Indicadores** do HTML `apresentacao/pool-2027-com-sem-neokonsig.html`). Cálculo em `downstream_16-11.csv`, `epicos_downstream_16-11.csv` e `gdp_16-11.csv`; sprint atribuída pela data de resolução. **S19 é parcial**: vai até 20/11/2026.
+
+| Indicador | S15 | S16 | S17 | S18 | S19 parcial |
+|---|---|---|---|---|---|
+| F1 Vazão (cards Tarefa/História/Bug concluídos) | 35 | 38 | 27 | 53 | 40 |
+| P1 Cards de épico concluídos | 18 | 24 | 15 | 34 | 32 |
+| Cards sem épico (%) | 48,6 | 36,8 | 44,4 | 35,8 | 20,0 |
+| P3 Cards de épico rastreáveis ao GDP (%) | 61,1 | 66,7 | 80,0 | 76,5 | 56,2 |
+| F4 (proxy) Testador preenchido (%) | 57,1 | 50,0 | 29,6 | 24,5 | 47,5 |
+| Revisor preenchido (%) | 51,4 | 34,2 | 29,6 | 24,5 | 40,0 |
+| Categorias preenchidas (%) | 88,6 | 86,8 | 92,6 | 96,2 | 100,0 |
+
+| Indicador | Situação da medição |
+|---|---|
+| F1, P1, P3 | Medidos no Jira. |
+| F2, F3 | Só pela Review S18 (63h; História 118h; CR 20h, QA 41h, Aprovação 26h). A exportação não traz histórico de status; o lead time criado→resolvido não serve como substituto (mistura fila do Upstream). Pedir exportação com histórico de status. |
+| F4 | Review S18 (12 funcionalidades e melhorias sem QA). Série acima é proxy (Testador preenchido), não o indicador. |
+| P2 | Primeira medição em abr/2027. Plano base sem NeoKonsig prevê entregas de projeto: até dez/2026 3 · T1/2027 17 · T2 3 · T3 15 · T4 17. |
+| S1 | Sem dado: relatório de SLA do 1º semestre/2026 não recebido. |
+
+Sinais secundários (não são indicadores): 127 cards abertos no Downstream, 9 deles há 3 sprints ou mais; GDP criados × concluídos: set/2026 8 × 5, out/2026 7 × 6.
+
 ## 6. Experimento do Downstream · Sprint 19
 
 ### 6.1 O que se mede
