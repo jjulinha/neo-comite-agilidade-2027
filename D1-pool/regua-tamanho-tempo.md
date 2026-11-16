@@ -17,7 +17,7 @@ Planilha: `regua-tamanho-tempo-2027.xlsx`, nesta pasta. Comece pela aba **Resumo
 
 O pedido é associar cada tamanho (PP a GG) a um tempo de entrega no Upstream e no Downstream, e classificar as demandas de hoje. Os dados mostram que essa associação funciona só em parte:
 
-- **No Downstream, o tamanho prevê o tempo a partir de G.** De PP a M, o tempo de calendário é praticamente o mesmo, porque o ciclo é dominado por espera. Na S18, 66% do ciclo mediano aconteceu depois do código pronto (Review da Sprint 18, extração de 06/11/2026 16h46).
+- **No Downstream, o tamanho prevê o tempo a partir de G.** De PP a M, o tempo de calendário é praticamente o mesmo. A explicação provável é a espera: na S18, 66% do ciclo mediano aconteceu depois do código pronto (Review da Sprint 18, extração de 06/11/2026 16h46). Esta régua ainda não separa trabalho de espera.
 - **No Upstream, o tamanho não prevê o tempo.** O que manda é quanto tempo a demanda fica parada esperando aprovação ou priorização.
 
 Por isso a régua tem **três faixas de tempo no Downstream** (PP–M, G e GG) e **uma referência única no Upstream**, com um alarme de demanda parada. Uma tabela com cinco tempos diferentes no Downstream daria precisão que os dados não têm.
@@ -50,12 +50,12 @@ Por isso a régua tem **três faixas de tempo no Downstream** (PP–M, G e GG) e
 | M (5–9) | 4 | 10,5 | 25,4 | 3–33 | 66 | 16 | 29 |
 | **PP–M agregado** | **14** | **16** | **29,2** | 3–47 | 72 | **16 (≈ 3 semanas)** | **29 (≈ 6 semanas)** |
 | G (10–20) | 1 | 46 | — | 46 | 86 | **66 (piso)** | **86** |
-| GG (> 20) | 0 | — | — | — | 80 (Parceiros, Entrega 1, com 24 cards abertos) | **não estimar** | **não estimar** |
+| GG (> 20) | 0 | — | — | — | 80 (Parceiros, Entrega 1, com 24 cards abertos; é piso, não referência) | **não estimar** | **não estimar** |
 
 **Como ler cada classe:**
 - **PP–M:** a referência é o grupo agregado de 14 épicos. Separar PP, P e M não muda o tempo: as medianas (16, 19 e 10,5) se sobrepõem e as amostras são de 4 a 5 épicos.
 - **G:** o único épico concluído levou 46 dias úteis. Os três G abertos já estão com 66, 82 e 86 dias úteis: DS-53 (regressão automatizada), DS-65 (vulnerabilidades) e DS-77 (Kanban). Por isso o típico adotado é 66, como piso.
-- **GG:** não tem base. A regra proposta é **quebrar em entregas G ou M antes de entrar no pool**.
+- **GG:** não tem base. A regra proposta é **quebrar em entregas G ou M antes de entrar no pool**. Para um GG que já está em andamento (só o DS-251), o restante é estimado pelo ritmo do próprio épico.
 
 ### Upstream (da criação à conclusão no Upstream, em dias úteis)
 
@@ -84,57 +84,55 @@ Por isso a régua tem **três faixas de tempo no Downstream** (PP–M, G e GG) e
 
 | Classe | Demandas | Cards a consumir | Total restante típico, média (dias úteis) |
 |---|---|---|---|
-| PP | 5 | 9 | 26,8 |
-| P | 10 | 26 | 51 |
-| M | 16 | 94 | 24,7 |
-| G | 10 | 105 | 88,8 |
-| GG | 5 | 108 | 87,9 |
+| PP | 5 | 9 | 26,8 (4 com estimativa; o DS-495 não tem card concluído) |
+| P | 10 | 26 | 51 (sem GDP-27 e GDP-28, cerca de 31) |
+| M | 15 | 84 | 26,2 (14 com estimativa; o DS-24 não tem card concluído) |
+| G | 11 | 115 | 85,5 |
+| GG | 5 | 108 | não estimável pela régua; só o DS-251, em andamento, tem estimativa (33 pelo ritmo do épico) |
 | Programa (cartão, 18 blocos de 2 a 10 cards) | 1 | 78 | prazo vem do pool (T2 2027) |
 | Sem escopo | 24 | — | não estimável |
 
 **Ressalvas da tabela:**
-- A média de P (51) é maior que a de M porque vários itens P não têm item no Upstream e recebem o Upstream inteiro (29).
+- A média de P (51) é puxada pelo GDP-27 e pelo GDP-28 (NeoFaz): épicos de 3 cards, com 1 concluído em 65 dias úteis, que pelo ritmo projetam 130 dias úteis cada. Sem eles, a média de P fica em torno de 31.
 - Nos épicos em andamento, a classe usa o **tamanho total do épico**, não os cards que restam. Por exemplo, o DS-65 tem 20 cards e é G, mesmo com 8 abertos.
+- Quando uma demanda junta dois épicos, o tamanho é a soma dos dois. O GDP-118 (JUDIT: DS-454 + DS-466, 5 cards cada) soma 10 e fica como G. O GDP-132 (NMP: DS-330 + DS-97) soma 6 e fica como M.
 
 ### O que a régua mostra que precisa de decisão
 
-**1. Nove épicos do Downstream já passaram da referência da classe.**
+**1. Desenvolvimentos acima da referência ou sem ritmo.**
 
-| Épico | Situação | Restante pelo ritmo do épico |
+| Demanda | Situação | Restante pelo ritmo do épico (dias úteis) |
 |---|---|---|
-| DS-251 (Parceiros, Entrega 1, GG) | 80 dias úteis decorridos | cerca de 33 dias úteis |
-| DS-53 (regressão automatizada, G) | 3 de 12 cards em 66 dias úteis | cerca de 198 dias úteis |
-| DS-65 (vulnerabilidades, G) | — | cerca de 55 dias úteis |
-| DS-77 (Kanban, G) | — | cerca de 57 dias úteis |
-| GDP-132 (NMP) | — | cerca de 36 dias úteis |
-| GDP-27 e GDP-28 (NeoFaz) | 1 de 3 cards concluído em cada | — |
-| DS-24 e DS-495 | **nenhum card concluído**: ritmo desconhecido | — |
+| DS-53 (regressão automatizada, G) | 3 de 12 cards em 66 dias úteis | cerca de 198 |
+| DS-65 (vulnerabilidades, G) | 12 de 20 cards em 82 dias úteis | cerca de 55 |
+| DS-77 (Kanban, G) | 6 de 10 cards em 86 dias úteis | cerca de 57 |
+| GDP-132 (NMP) | 4 de 6 cards em 72 dias úteis | cerca de 36 |
+| GDP-27 e GDP-28 (NeoFaz) | 1 de 3 cards concluído em cada, em 65 dias úteis | cerca de 130 cada |
+| DS-251 (Parceiros, Entrega 1, GG) | 59 de 83 cards em 80 dias úteis; GG não tem referência | cerca de 33 |
+| DS-24 e DS-495 | nenhum card concluído (66 e 59 dias úteis) | ritmo desconhecido |
 
-A recomendação vale para todos: quebrar, pausar com motivo ou cancelar, conforme a oportunidade 05 da Review da Sprint 18.
+Os seis primeiros já passaram da referência típica da classe. Para todos, a recomendação é quebrar, pausar com motivo ou cancelar, conforme a oportunidade 05 da Review da Sprint 18.
 
-**2. Upstream travado.** Nove demandas da lista estão paradas no status atual há mais de 2 sprints. Oito delas já passaram do conservador de 44 dias úteis no Upstream:
+**2. Upstream travado.** Nove demandas estão paradas no status atual há mais de 2 sprints. Sete delas também passaram do conservador de 44 dias úteis no Upstream:
 
 | Demanda | Item no Upstream | Status | Idade (dias úteis) |
 |---|---|---|---|
-| GDP-30 | US-19 | Análise funcional | 72 |
+| GDP-30 (Convênio NeoKonsig) | US-19 | Análise funcional | 72 |
 | GDP-96 (MCB) | US-50 | Prototipação | 63 |
-| GDP-105 | US-53 | Especificação técnica + testes | 57 |
 | GDP-138 | US-72 | Aprovação dos solicitantes | 45 |
-| — | US-43 | — | 66 |
-| — | US-37 | — | 66 |
-| GDP-95 | US-34 | — | 66 |
-| — | US-35 | — | 66 |
+| US-43 (CI/CD do Konsig) | US-43 | Backlog | 66 |
+| US-37 (CNPJ alfanumérico) | US-37 | Backlog | 66 |
+| GDP-95 (Migração do Slack) | US-34 | Análise funcional | 66 |
+| US-35 (Modernização tecnológica) | US-35 | Backlog | 66 |
 
-Exceções:
-- O GDP-105 está acima do conservador, mas mudou de status há 6 dias úteis.
-- GDP-62 (CRCP) e GDP-114 (Crivo) estão parados há mais de 2 sprints, mas ainda abaixo do conservador.
+As outras duas paradas há mais de 2 sprints são o GDP-62 (CRCP) e o GDP-114 (Crivo), ainda abaixo do conservador. O GDP-105 (US-53) passou do conservador (57 dias úteis), mas mudou de status há 6 dias úteis.
 
 Esse é o maior ganho rápido de prazo: a espera no Upstream, não o desenvolvimento.
 
 **3. Itens sem escopo.** 24 itens não são estimáveis: os 23 do pool e o GDP-145. A régua não resolve isso. Só o preenchimento do template resolve.
 
 **4. Os G e GG da fila.**
-- G: GDP-114 Crivo, GDP-84, GDP-34, GDP-35, GDP-32 e US-43 CI/CD do Konsig.
+- G na fila: GDP-62 CRCP, GDP-114 Crivo, GDP-84, GDP-34, GDP-35, GDP-32 e US-43 CI/CD do Konsig.
 - GG: GDP-30 Convênio, GDP-36 Financeiro, GDP-88 Inventário NeoFaz e a reestruturação da esteira.
 - Com a régua, cada G leva pelo menos 66 dias úteis (cerca de 3 meses) no Downstream.
 
@@ -155,5 +153,5 @@ Esse é o maior ganho rápido de prazo: a espera no Upstream, não o desenvolvim
 - **O que fazer agora:** levar ao comitê a proposta das três faixas de tempo no Downstream, da referência única no Upstream e do alarme de item parado. Usar a lista do item 2 da seção 5 como primeira pauta de desbloqueio.
 - **O que fica para depois:** separar trabalho e espera por etapa, quando houver extração com histórico de status. Refazer as medianas no fim da S22, com mais épicos concluídos.
 - **O que cortar:** prometer prazos diferentes para PP, P e M. Os dados não sustentam essa diferença.
-- **Decisão necessária:** se G entra no pool como está ou se passa a ter a mesma regra do GG (quebrar em M). Recomendação: quebrar. Um G leva pelo menos 3 meses no Downstream, e os três G abertos estão todos acima disso.
+- **Decisão necessária:** se G entra no pool como está ou se passa a ter a mesma regra do GG (quebrar em M). Recomendação: quebrar. Um G leva pelo menos 3 meses no Downstream, e os três G abertos já estão com 66 dias úteis ou mais (66, 82 e 86).
 - **Menor próximo passo útil:** pedir ao administrador do Jira uma exportação do Downstream e do Upstream **com histórico de status**, para medir o tempo por etapa.
