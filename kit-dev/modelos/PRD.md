@@ -1,258 +1,265 @@
 <!--
-MODELO · Documento de Requisitos de Produto (PRD) · Kit de documentação TI Neo Crédito · v1.0 · 16/11/2026 · proposta
-Como usar: copie este arquivo para docs/prd/<chave GDP>_<assunto>.md no repositório do sistema afetado.
-Apague todos os blocos "Orientação" antes de enviar para revisão. Mantenha os títulos das seções.
-Seção que não se aplica: escreva "Não se aplica: <motivo em uma linha>". Seção vazia não é aceita.
-PRD curto (tamanho M): seções 1, 2, 3, 4, 7, 10, 11, 14, 15 e 16 obrigatórias; as demais podem ser "Não se aplica".
-A seção 16 (Aprovações) é obrigatória em todo PRD, porque é a saída exigida para concluir no Upstream (README, seção 2, etapa 5).
-Compatibilidade: o cabeçalho segue o padrão da Visão do Cartão de Crédito v6 (03/11/2026): Dados do Projeto, Versionamento,
-Contexto e objetivos, Papéis, Macroetapas, Regras, Riscos. Os critérios e cenários seguem o guia "Como escrever um card" (InnoviaX v1.0).
+MODELO · Documento de Requisitos de Produto (PRD) · Kit de documentação TI Neo Crédito · v2.0 · 17/11/2026 · proposta
+Substitui o PRD.md v1.0 (16/11/2026). A escolha de trilha e toda a estrutura em dois níveis são [ALÉM DA FONTE — decisão do usuário].
+A régua PP/P/M/G/GG é proposta sem decisão (D1-pool/regua-tamanho-tempo.md, v1, 16/11/2026).
 -->
 
-# <Título da demanda: verbo + objeto>
+# Modelo de PRD (núcleo + completo)
 
-## 1. Identificação
+O PRD diz **o quê e por quê** de uma demanda. Serve a dois leitores ao mesmo tempo: a área solicitante, que aprova, e o agente de IA, que o recebe como contexto junto com o card. Por isso as regras são numeradas e escritas em EARS, e os critérios em Dado/Quando/Então.
 
-### 1.1 Dados do projeto
+Convenções do kit, mantidas do v1:
+- **Um documento, um sistema.** Konsig (legado) e NeoKonsig (reescrita) nunca dividem o mesmo PRD. Integração entre os dois é integração entre sistemas distintos.
+- **[A CONFIRMAR]**: deveria existir em documento oficial e não foi recebido.
+- **[ALÉM DA FONTE — decisão do usuário]**: não está em nenhuma fonte; é proposta de quem escreveu.
 
-| Campo | Valor |
-|---|---|
-| Nome do projeto | <nome> |
-| Sistema | <**Konsig** (legado) **ou** **NeoKonsig** (reescrita) ou outro sistema do Inventário. Um único sistema por PRD.> |
-| Item GDP | <GDP-n> |
-| Itens Upstream | <US-n, US-n> |
-| Épico(s) Downstream | <DS-n, preenchido após o Plano de Implementação> |
-| Solicitante / área | <área solicitante, sem nome de pessoa> |
-| Responsável pelo documento | <papel: PO, analista funcional> |
-| Data de abertura | <dd/mm/aaaa> |
-| Prazo esperado pela área | <mês/ano ou "não informado"> |
-| Prioridade no GDP | <Highest, High, Medium, Low, Lowest> |
-| Classe de serviço | <Expedite · Fixed Date · Standard · Intangible> |
-| Risco | <Alto · Médio · Baixo> |
-| Vinculado ao PDTI | <Sim (diretriz: ...) · Não> |
-| Natureza | [ ] Tem potencial financeiro · [ ] Gera atendimento · [ ] Reduz fluxo operacional · [ ] Regulatória |
-| Status do documento | <Rascunho · Em revisão · Aprovado · Em execução · Concluído · Substituído> |
-| Documentos relacionados | <Visão (ID no Drive), PRD-mãe, ADRs, protótipo> |
+## Quando usar / quando não usar
 
-> **Orientação.** Entra: o que identifica a demanda e a amarra ao Jira. Não entra: nomes de pessoas, solução técnica. Os campos Natureza e Vinculado ao PDTI repetem o cabeçalho da Visão do Cartão v6 para que o PRD e a Visão se leiam do mesmo jeito; "Regulatória" é acréscimo deste modelo **[ALÉM DA FONTE — decisão do usuário]**.
->
-> **Exemplo:** Nome do projeto: Quitação · Fase 2 · Motor de validação. Sistema: **Konsig** (legado). Item GDP: GDP-76. Itens Upstream: US-69. Épico: DS-500. Solicitante / área: Financeiro. Responsável pelo documento: analista funcional.
+| Trilha (tamanho provisório) | PRD | O que preencher |
+|---|---|---|
+| **PP** (1–2 cards) | **Não usa.** Só o CARD.md no modelo do tipo. | Gatilho de **dinheiro** promove a demanda para P: PRD núcleo com a seção 12 (tabela de decisão) e RN em EARS. |
+| **P** (3–4 cards) | **Núcleo** (seções 1 a 7). Pode morar no épico do Jira ou em `docs/`. | Sem Plano. |
+| **M** (5–9 cards) | **Núcleo** (seções 1 a 7). | Mais o Plano curto. |
+| **G** (10–20 cards) | **Completo** (núcleo + seções 8 a 15). Apetite recomendado. | Plano completo. A régua manda quebrar GG em entregas G ou M (`regua-tamanho-tempo.md`, seção 3) e recomenda estender a quebra ao G, decisão pendente (seção 7). |
+| **GG** (mais de 20) | **Completo**, com **apetite obrigatório**. | Plano completo; "Desenho e alternativas" no Plano se houver integração nova ou trade-off real. |
 
-### 1.2 Versionamento
+- **Tamanho antes do PRD.** Use o tamanho do `D1-pool/pool-2027-plano.xlsx` ou estime pela descrição. Na dúvida, comece pela trilha mais leve e **promova o documento** (núcleo → completo) quando a contagem de cards subir. Não espere o PRD para saber o tamanho.
+- **Gatilhos que se somam ao PRD**, em qualquer tamanho: integração nova ou alterada → `CONTRATO-DE-INTEGRACAO.md`; dado pessoal → `CHECKLIST-DADOS-E-REGULACAO.md`; dinheiro → tabela de decisão (seção 12) com um teste por linha + ADR + seção Corte do Plano com go/no-go na primeira ida a produção; decisão difícil de reverter → `ADR.md`.
+- **Não use o PRD para:** decisão técnica (vai no ADR), passo de entrega, deploy ou rollback (vai no Plano), detalhe de um card (vai no CARD.md), RIPD (é do DPO, não do dev).
 
-| Data | Responsável (papel) | Versão | Descrição da alteração |
+**Onde fica.** `docs/prd/<chave>_<assunto>.md` no repositório do sistema. A área solicitante lê e aprova em PDF ou link do Drive que aponta para a versão do repositório (seção 7). Enquanto o repositório do Konsig que recebe `docs/` estiver [A CONFIRMAR] (DS-175/DS-495), use a pasta provisória definida no README do kit.
+
+**Uso com IA.** O PRD vai no contexto do agente junto com o card (e o Plano, quando houver): é dele que o agente tira as RN e os cenários. O nível é *spec-anchored* (Böckeler, martinfowler.com): o documento fica vivo ao lado do código, e **quem muda o comportamento atualiza o PRD no mesmo PR**. Mudança de escopo sobe a versão (seção 7). A IA não escreve no Jira.
+
+---
+
+## Cópia em branco · núcleo (P e M)
+
+Copie o bloco abaixo inteiro. Não tem orientação para apagar: as orientações estão no fim deste arquivo. Seção que não se aplica: `Não se aplica: <motivo em uma linha>`.
+
+~~~markdown
+# <Título: verbo + objeto>
+
+## 1. Cabeçalho
+| Sistema (um só) | Chave Jira | Natureza | Status · versão |
 |---|---|---|---|
-| <dd/mm/aaaa> | <PO> | 0.1 | Elaboração do documento. |
+| <Konsig ou NeoKonsig> | <GDP-n · US-n · DS-n> | <Potencial financeiro · Gera atendimento · Reduz fluxo operacional> | <Rascunho · Em revisão · Aprovado · Em execução · Concluído · Substituído> · v0.1 |
 
-> **Orientação.** 0.x em rascunho e revisão; 1.0 na aprovação; 1.x para ajuste sem mudança de escopo; 2.0 para mudança de escopo, que reabre aprovação e exige revisar os cards cuja referência (bloco 1 do card) cita a versão anterior.
+Atividade regulatória (natureza no Jira Downstream, só se for): norma de origem <norma, artigo> · data de vigência <dd/mm/aaaa>
+Dados e regulação: responda CHECKLIST-DADOS-E-REGULACAO.md e cole aqui as respostas sim/não.
 
----
-
-## 2. Problema
-
-<Como o processo funciona hoje, quem é afetado, o que dá errado e qual a consequência. Três a dez linhas.>
-
-> **Orientação.** Entra: situação atual verificável, inclusive passos manuais e fora do sistema; consequência medida ou observada (retrabalho, risco operacional, reclamação). Não entra: a solução; adjetivos sem fato ("processo ruim"). Reaproveite o roteiro de abertura do GDP (Contexto da solicitação, Descrição do problema, Como o processo funciona atualmente, Consequências do cenário atual), sem copiar o nome do solicitante.
->
-> **Exemplo:** O Financeiro executa a quitação de dívida e o pagamento residual das propostas da esteira Cartão Consignado Compra de forma manual, com Konsig, planilhas e portais bancários (DS-418). A conferência das regras de pagamento é feita em planilha, sem registro auditável da decisão, com risco financeiro e de rastreamento (US-69).
-
----
+## 2. Problema e por que agora
+<Como é hoje, quem é afetado, o que dá errado, consequência observada. Por que agora: data, norma, risco.>
 
 ## 3. Objetivo e métrica de sucesso
-
-| Objetivo | Métrica | Linha de base (fonte e data) | Meta | Quando medir |
-|---|---|---|---|---|
-| <o que muda para o negócio> | <fórmula> | <valor, fonte, data> ou [A CONFIRMAR] | <valor> | <data ou evento> |
-
-> **Orientação.** Entra: um a três objetivos de negócio, cada um com métrica que alguém consegue medir sem abrir o código. Toda linha de base cita a fonte e a data. Não entra: objetivo técnico ("migrar para a versão X"), que vai para o ADR; meta sem linha de base. Se a linha de base não existe, registre [A CONFIRMAR] e diga quem mede.
->
-> **Exemplo:** Objetivo: comparar a decisão do motor com a decisão da planilha antes de automatizar o pagamento. Métrica: propostas em que motor e planilha concordam ÷ propostas avaliadas no modo sombra **[ALÉM DA FONTE — decisão do usuário: leitura de "comparar com a planilha durante o modo sombra", DS-507]**. Linha de base: não existe [A CONFIRMAR: o critério de avanço da Fase 2, citado no DS-507, não está descrito]. Meta: definida pela área Financeiro.
-
----
-
-## 4. Escopo e fora de escopo
-
-### 4.1 Dentro do escopo
-
-- <capacidade 1>
-- <capacidade 2>
-
-### 4.2 Fora do escopo
-
-| Item | Motivo | Onde será tratado |
-|---|---|---|
-| <item> | <motivo> | <fase, outro GDP, não será feito> |
-
-> **Orientação.** Entra: capacidades em linguagem de negócio; no fora de escopo, o que alguém poderia supor que está incluído. Não entra: lista de telas ou de tabelas. O fora de escopo é o que permite recusar acréscimos depois; ele precisa ser tão explícito quanto o escopo.
->
-> **Exemplo:** Dentro: aplicar às propostas em AND - AGUARD QUITACAO as regras cadastradas na Fase 1 e registrar cada avaliação. Fora: alterar situação ou status da proposta, enviar e-mail e montar lote de pagamento (modo sombra, registrado no DS-500); pagamento via PagAuto com a API do Banco do Brasil (fase posterior, decisão de 09/11/2026).
-
----
-
-## 5. Perfis (papéis e responsabilidades)
-
-| Perfil | Papel na funcionalidade | O que pode fazer | O que não pode fazer |
+| Objetivo | Métrica | Linha de base (fonte, data) | Meta |
 |---|---|---|---|
-| <perfil de acesso no sistema> | <papel> | <ações> | <restrições> |
+| <o que muda para o negócio> | <fórmula> | <valor, fonte, data> ou [A CONFIRMAR] | <valor> |
 
-> **Orientação.** Entra: perfis de acesso do sistema e atores externos (parceiros, processadoras), no formato da tabela de papéis da Visão do Cartão v6. Não entra: nome de pessoa ou de usuário. Quando o sistema ainda não tem o perfil, registre [A CONFIRMAR] e o dono da definição.
->
-> **Exemplo:** Analista do Financeiro: consulta a lista e o detalhe das avaliações e exporta para Excel; vê CPF mascarado conforme o perfil. Não altera regra nem decisão.
+## 4. Não objetivos e fora do escopo
+Não objetivos (poderiam ser objetivo e foram descartados):
+- <...>
 
----
-
-## 6. Fluxo atual × proposto
-
-### 6.1 Macroetapas
-
-| # | Macroetapa | Hoje (como é feito) | Proposto (o que muda) | Responsável | Dependências |
-|---|---|---|---|---|---|
-| 1 | <etapa> | <manual, planilha, sistema> | <comportamento novo> | <área ou sistema> | <parceiro, outra etapa> |
-
-### 6.2 Diagrama
-
-<Link para o BPMN AS-IS e TO-BE ou para o protótipo. Se não houver: "Não elaborado" e o motivo.>
-
-> **Orientação.** Entra: a sequência de negócio, uma linha por etapa, no formato da tabela de macroetapas da Visão do Cartão v6 (#, macroetapa, escopo, responsável, dependências), acrescida da coluna "Hoje". Não entra: descrição de tela; códigos de requisito dentro do protótipo (nas telas, nunca citar RF ou RN).
->
-> **Exemplo:** 1 · Captura: hoje o Financeiro filtra as propostas em planilha; proposto, o motor captura as propostas em AND - AGUARD QUITACAO. Responsável: Konsig. Dependência: regras cadastradas na Fase 1 (DS-418).
-
----
-
-## 7. Regras de negócio
-
-| Código | Regra | Origem | Observação |
-|---|---|---|---|
-| RN01 | <afirmação verificável, com número, prazo ou condição> | <norma, contrato, decisão com data, área> | <exceção, vigência> |
-| RN02 | ... | ... | ... |
-
-> **Orientação.** Entra: uma regra por linha, numerada e estável (o número não muda entre versões; regra removida fica riscada com a versão em que saiu), com a origem de cada uma. Não entra: comportamento de tela; regra sem origem. Toda regra que não estiver na fonte da demanda leva [ALÉM DA FONTE — decisão do usuário]. São estes códigos que os cards citam no bloco 1.
->
-> **Exemplo:** RN01 · O motor avalia apenas propostas da esteira Cartão Consignado Compra na situação AND - AGUARD QUITACAO. Origem: critério de aceite do DS-501. RN02 · Na Fase 2 o motor não altera situação nem status da proposta. Origem: escopo registrado no DS-500.
-
----
-
-## 8. Requisitos não funcionais
-
-| Código | Categoria | Requisito (mensurável) | Origem |
-|---|---|---|---|
-| RNF01 | Segurança | <controle de acesso por perfil, trilha de auditoria> | <política, ADR> |
-| RNF02 | LGPD | <mascaramento, minimização, retenção> | <LGPD, parecer do DPO> |
-| RNF03 | Desempenho | <tempo máximo, volume> | <área, medição> |
-| RNF04 | Disponibilidade e falha | <comportamento quando o serviço externo cai> | <contrato, área> |
-| RNF05 | Manutenibilidade | <teste automatizado, simulação de serviço externo> | <tech lead> |
-
-> **Orientação.** Entra: só o que for específico desta demanda, com número. Não entra: "o sistema deve ser seguro e performático". Em demanda do cartão, registre o que vem do PCI DSS e da Mastercard listados na Visão do Cartão v6 (não guardar CVV, mascarar PAN em logs, escopo do ambiente de dados de cartão, riscos R18 e R19), sem transcrever o texto das normas.
->
-> **Exemplo:** RNF01 · Toda avaliação do motor fica registrada com data, regra aplicada e resultado, e pode ser consultada pelo Financeiro sem acesso ao banco. RNF02 · Na exportação para Excel, o CPF aparece mascarado conforme o perfil (DS-507 e DS-509).
-
----
-
-## 9. Integrações
-
-| Parceiro ou sistema | Finalidade | Sentido | Meio | Contrato, manual ou leiaute (versão) | Situação |
-|---|---|---|---|---|---|
-| <parceiro> | <para quê> | <envio, recebimento, ambos> | <API, arquivo SFTP, fila> | <documento e versão> | <existente · nova · [A CONFIRMAR]> |
-
-> **Orientação.** Entra: cada integração tocada pela demanda, com o documento técnico de origem e a versão. Integração entre Konsig e NeoKonsig também entra aqui, como integração entre sistemas distintos, com o dono de cada dado. Não entra: endereço de servidor, credencial, identificador de conta. Tecnologia que não estiver no Inventário de Sistemas: [A CONFIRMAR no Inventário de Sistemas].
->
-> **Exemplo:** Banco do Brasil · pagamento da quitação · envio · API do BB via PagAuto · análise da API [A CONFIRMAR: não recebida] · nova, fase posterior (decisão de 09/11/2026).
-
----
-
-## 10. Critérios de aceite
-
-- <afirmação binária, com número, prazo, formato ou janela>
-- <comportamento exigido em falha>
-- <exigência de registro ou auditoria>
-
-### 10.1 Cenários de comportamento (BDD) principais
-
-```
-Cenário: <título curto · caminho feliz>
-  Dado que <estado inicial verificável>
-  Quando <uma única ação>
-  Então <resultado observável por quem lê>
-
-Cenário: <alternativo>
-Cenário: <borda>
-Cenário: <falha>
-```
-
-> **Orientação.** Entra: os critérios de aceite da demanda como um todo e os cenários que cobrem caminho feliz, alternativo, borda e falha (guia InnoviaX, seções 03 a 05). Os cards herdam daqui e detalham; os cenários de teste com dado concreto ficam nos cards. Não entra: advérbio ("rapidamente"), critério que não vira teste, detalhe de implementação.
->
-> **Exemplo de critério:** A exportação gera um arquivo .xlsx com os filtros aplicados, as colunas na ordem da aba de extração e o CPF mascarado conforme o perfil.
-> **Exemplo de cenário (falha):** Cenário: regra sem vigência ativa. Dado que nenhuma regra do validador está vigente na data da avaliação, quando o motor avalia a proposta, então a decisão registrada é ANALISE_MANUAL e o motivo fica visível no detalhe. [ALÉM DA FONTE — decisão do usuário: exemplo ilustrativo; o comportamento real depende da tabela de decisão do Documento de Requisitos V04.]
-
----
-
-## 11. Dependências
-
-| O que falta | Quem responde (papel ou área) | Até quando | Bloqueia o caminho principal? |
-|---|---|---|---|
-| <documento, decisão, acesso, ambiente> | <papel> | <dd/mm/aaaa> | <Sim · Não> |
-
-> **Orientação.** Entra: o que precisa existir e não depende do time de desenvolvimento, sempre com dono e data (guia InnoviaX, bloco 9). Não entra: tarefa de desenvolvimento; "a definir" sem dono. Se bloqueia o caminho principal, a demanda não sai do Upstream.
->
-> **Exemplo:** Ajustes apontados no teste de 09/11/2026 da tela de Administração de Quitação · tech lead · [A CONFIRMAR data] · Sim (pré-requisito da Fase 2 declarado no DS-500).
-
----
-
-## 12. Tratamento de dados pessoais (LGPD)
-
-| Categoria de dado tratado | Finalidade | Quem acessa (perfil) | Mascaramento ou minimização | Retenção | Compartilhado com terceiro? |
-|---|---|---|---|---|---|
-| <ex.: CPF do cliente> | <para quê> | <perfil> | <regra> | <prazo ou [A CONFIRMAR com o DPO]> | <Não · Sim: parceiro e base contratual> |
-
-> **Orientação.** Entra: a declaração do tratamento, não o dado. Não entra em nenhuma hipótese: CPF, nome, contato ou contrato reais, nem em exemplo. Demanda que envie dado pessoal a parceiro novo ou a fornecedor de IA precisa de parecer do DPO antes da aprovação **[ALÉM DA FONTE — decisão do usuário]**.
-
----
-
-## 13. Riscos
-
-| ID | Risco | Categoria | Probabilidade | Impacto | Mitigação | Dono (papel) |
-|---|---|---|---|---|---|---|
-| R01 | <evento incerto e consequência> | <técnico, negócio, regulatório, prazo> | <A · M · B> | <A · M · B> | <ação> | <papel> |
-
-> **Orientação.** Entra: risco com evento e consequência, no formato da tabela de riscos da Visão do Cartão v6 (ID, risco consolidado, categoria, mitigação), acrescida de probabilidade, impacto e dono. Não entra: problema que já aconteceu (isso é dependência ou pendência).
->
-> **Exemplo:** R01 · Construção nova no Konsig, que não tem pipeline de CI/CD (US-43, Backlog): implantação manual aumenta o risco de regressão. Técnico · M · A · Plano de teste com regressão manual dos fluxos de quitação; deploy acompanhado pelo tech lead · tech lead.
-
----
-
-## 14. Tamanho estimado (régua)
-
-| Campo | Valor |
+| Fora do escopo | Onde será tratado |
 |---|---|
-| Cards de épico previstos | <n> (quebra pela seção 06 do guia; detalhe no Plano) |
-| Classe | <PP 1–2 · P 3–4 · M 5–9 · G 10–20 · GG > 20> |
-| Referência no Downstream (dias úteis) | <PP–M: 16 típico / 29 conservador · G: 66 piso / 86 · GG: não estimar, quebrar> |
-| Referência no Upstream (dias úteis) | 29 típico / 44 conservador |
-| Precisa quebrar antes? | <Sim, se GG; recomendado avaliar para G> |
+| <item que alguém suporia incluído> | <fase n, GDP-n, não será feito> |
 
-> **Orientação.** Fonte das faixas e das referências: `D1-pool/regua-tamanho-tempo.md` (versão 1, 16/11/2026). **As faixas são proposta sem decisão do comitê.** Não entra: pontos de história nem Fibonacci, que não são prática atual do time. O tamanho é registrado ao concluir no Upstream (Políticas Explícitas V1, seção 3.8) e comparado com o realizado no fechamento.
->
-> **Exemplo:** Quitação Fase 2: 8 cards (DS-501, DS-503 a DS-509), classe M, referência de 16 dias úteis no Downstream (29 conservador).
+## 5. Regras de negócio (EARS)
+| RN | Regra | Origem |
+|---|---|---|
+| RN01 | QUANDO <gatilho>, o <sistema> DEVE <resposta>. | <norma, card, decisão com data> |
+| RN02 | SE <condição indesejada>, ENTÃO o <sistema> DEVE <resposta>. | <...> |
 
----
+## 6. Critérios de aceite
+```gherkin
+Cenário: <caminho feliz> (RN01)
+  Dado que <estado inicial>
+  Quando <uma ação>
+  Então <resultado observável>
+
+Cenário: <falha> (RN02)
+```
+
+## 7. Dependências, perguntas em aberto e aprovação
+| Pendência ou pergunta | Quem responde (papel) | Até quando | Bloqueia? |
+|---|---|---|---|
+| <...> | <papel> | <dd/mm/aaaa> | <Sim · Não> |
+
+| Versão | Data | Mudança | Aprovada por (papel, área) | Onde (PDF ou link do Drive) |
+|---|---|---|---|---|
+| 0.1 | <dd/mm/aaaa> | Elaboração | — | — |
+~~~
+
+## Cópia em branco · seções do completo (G e GG)
+
+Cole depois da seção 7 do núcleo.
+
+~~~markdown
+## 8. Apetite
+<Teto de tempo que a área aceita pagar, decidido antes da solução: n semanas ou n sprints. Se a estimativa passar disso, corta-se escopo.>
+
+## 9. Perfis
+| Perfil (acesso no sistema) | Pode | Não pode |
+|---|---|---|
+| <perfil> | <ações> | <restrições> |
+
+## 10. Fluxo atual × proposto
+| # | Etapa | Hoje | Proposto | Responsável (área ou sistema) |
+|---|---|---|---|---|
+| 1 | <etapa> | <manual, planilha, sistema> | <o que muda> | <...> |
+
+Esteira (máquina de estados), quando for o caso:
+| Estado de origem | Evento ou gatilho | Estado de destino | Quem dispara | Exceção |
+|---|---|---|---|---|
+| <situação + atividade> | <...> | <...> | <perfil, sistema, rotina> | <paradinha, retorno, reanálise> |
+
+## 11. Requisitos não funcionais (EARS)
+| RNF | Categoria | Requisito | Origem |
+|---|---|---|---|
+| RNF01 | <Segurança · Auditoria · LGPD · Desempenho · Falha> | ENQUANTO <estado>, o <sistema> DEVE <resposta mensurável>. | <...> |
+
+## 12. Tabela de decisão
+| Linha | <Condição A> | <Condição B> | Decisão | Precedência | Vigência da regra (RN, versão, início–fim) | Caso de teste |
+|---|---|---|---|---|---|---|
+| 1 | <valor> | <valor> | <DECISAO> | <1 = vence> | <RN0n, v1, dd/mm/aaaa–> | T1 |
+
+## 13. Integrações
+| Contraparte | Sentido | Meio | Contrato |
+|---|---|---|---|
+| <parceiro ou sistema> | <envio · recebimento · ambos> | <API · SFTP · fila> | [CONTRATO-DE-INTEGRACAO](<link>) |
+
+## 14. Riscos
+| ID | Risco (evento → consequência) | Prob. | Impacto | Mitigação | Dono (papel) |
+|---|---|---|---|---|---|
+| R01 | <...> | <A · M · B> | <A · M · B> | <...> | <papel> |
 
 ## 15. Rastreabilidade
-
-| Regra ou critério | Item GDP | Item Upstream | Card(s) Downstream | Caso(s) de teste |
-|---|---|---|---|---|
-| RN01 | GDP-n | US-n | DS-n | T1, T2 |
-
-> **Orientação.** Entra: cada regra (seção 7) e cada RNF (seção 8) ligados ao card que a implementa e ao teste que a prova. Uma regra sem card é escopo esquecido; um card sem regra é escopo inventado. Preencha a coluna de cards depois do Plano de Implementação.
+| RN / RNF / linha da tabela | Card(s) | Caso(s) de teste |
+|---|---|---|
+| RN01 | DS-n | T1 |
+~~~
 
 ---
 
-## 16. Aprovações
+## Orientações por seção
 
-| Papel | Área | Decisão | Data | Observação |
-|---|---|---|---|---|
-| Área solicitante | <área> | <Aprovado · Aprovado com ressalva · Reprovado> | <dd/mm/aaaa> | |
-| PO | TI | | | |
-| Tech lead | TI | | | Confirma sistema (Konsig ou NeoKonsig) e necessidade de ADR |
-| Segurança e Conformidade / DPO | TI | | | Somente se a seção 12 declarar compartilhamento com terceiro ou dado sensível |
+Padrão de cada item: **Entra** (o que precisa estar), **Não entra** (o que sobra ou está no lugar errado), **Caso Neo** (o que aconteceu num projeto real e o que a seção evita).
 
-> **Orientação.** A aprovação registra papel e área; o nome de quem aprovou fica no histórico do Jira (Aprovação solicitantes), não no documento. A linha de Segurança e Conformidade é proposta deste modelo **[ALÉM DA FONTE — decisão do usuário]**.
+### 1. Cabeçalho
+
+- **Entra:** um único sistema; a chave do Jira que representa a demanda (GDP-n; ou US-n/DS-n quando não houver GDP); a natureza, nas opções da Visão do Cartão v6 (Potencial financeiro · Gera atendimento · Reduz fluxo operacional); status e versão. O roteiro do GDP não tem campo de natureza.
+- **Não confunda com o campo "natureza" do Jira Downstream:** é outro vocabulário (Nova funcionalidade, Arquitetura, Melhoria, Débito técnico, Chamado, Atividade regulatória) (`downstream_16-11.csv`, 16/11/2026 10h26). Demanda regulatória usa o valor "Atividade regulatória" de lá, preenchido no Jira.
+- **Atividade regulatória:** norma de origem e data de vigência são obrigatórias no PRD. A data de vigência casa com a classe de serviço "Fixed Date" no Jira (`contexto-mestre.md`, Classes de serviço).
+- **Dados e regulação:** não repita aqui as perguntas do checklist. Cole só as respostas sim/não. Se alguma resposta acionar o DPO ou Segurança & Conformidade, isso vira pendência na seção 7.
+- **Não entra:** prioridade, solicitante, datas de abertura, épicos, classe de serviço, responsável. Tudo isso já está no Jira; o v1 pedia o mesmo metadado no PRD, no Plano, no ADR, no card e no Jira. Nunca nome de pessoa.
+
+### 2. Problema e por que agora
+
+- **Entra:** situação atual verificável, inclusive passos manuais e fora do sistema; consequência observada; por que fazer agora (data de norma, risco, decisão). Três a dez linhas. Reaproveite o roteiro de abertura do GDP.
+- **Não entra:** a solução; adjetivo sem fato ("processo ruim").
+- **Caso Neo:** 56 de 90 itens do GDP trazem o texto-modelo vazio idêntico; 57 contando o GDP-6, que repete o modelo com asteriscos (`gdp_16-11.csv`, 16/11/2026 9h51), entre eles GDP-83 (Cobmais Parte 2) e GDP-132 (NMP). Sem problema escrito, a demanda não tem como ser dimensionada.
+
+### 3. Objetivo e métrica de sucesso
+
+- **Entra:** um a três objetivos de negócio, cada um com métrica que se mede sem abrir o código. Toda linha de base cita fonte e data; se não existe, [A CONFIRMAR] e o papel de quem mede.
+- **Não entra:** objetivo técnico ("migrar para a versão X"), que vai para o ADR; meta sem linha de base.
+
+### 4. Não objetivos e fora do escopo
+
+São duas coisas diferentes:
+- **Não objetivo** (Google design docs; modelo de Kevin Yien): algo que *poderia razoavelmente* ser objetivo e foi descartado de propósito. Ex.: "Não é objetivo da Fase 2 reduzir o tempo do Financeiro; é comparar a decisão do motor com a da planilha".
+- **Fora do escopo:** item que alguém suporia incluído, sempre com a coluna **onde será tratado** (fase, outro GDP, "não será feito"). É o que permite recusar acréscimo depois.
+- **Não entra:** lista de telas ou de tabelas; "onde será tratado" em branco.
+- **Caso Neo (escopo esquecido):** o DS-500 diz "Os efeitos (RF23, RF24, RF2, RF5) ficam para a Fase" e não diz qual fase nem o escopo dela (`downstream_16-11.csv`, 16/11/2026 10h26). A coluna "onde será tratado" com o número da fase teria fechado isso.
+- **Caso Neo (escopo sem origem):** DS-507 e DS-509 são duas exportações, e o DS-509 diz "A exportação não consta no Documento de Requisitos V04" (mesma fonte). Ou entra no PRD com RN e origem, ou vai para o fora do escopo.
+
+### 5. Regras de negócio (EARS)
+
+- **Entra:** uma regra por linha, **número estável** (não muda entre versões; regra removida fica riscada, com a versão em que saiu) e **origem por linha** (norma, card, decisão com data, área). São estes números que os cards citam.
+- **Redação EARS** (Easy Approach to Requirements Syntax, Mavin et al., Rolls-Royce, IEEE RE'09). A tradução das palavras-chave é [ALÉM DA FONTE — decisão do usuário]. Ordem fixa das cláusulas: `ENQUANTO <pré-condição>, QUANDO <gatilho>, o <sistema> DEVE <resposta>`.
+
+| Padrão | Forma | Exemplo |
+|---|---|---|
+| Ubíquo (sempre vale) | O <sistema> DEVE <resposta>. | O motor DEVE avaliar apenas propostas da esteira Cartão Consignado Compra na situação AND - AGUARD QUITACAO. (DS-501) |
+| Por evento | QUANDO <gatilho>, o <sistema> DEVE <resposta>. | QUANDO o motor avaliar uma proposta sem regra vigente, o sistema DEVE registrar a decisão ANALISE_MANUAL com o motivo. [ALÉM DA FONTE — decisão do usuário: ilustrativo] |
+| Por estado | ENQUANTO <estado>, o <sistema> DEVE <resposta>. | ENQUANTO o motor estiver em modo sombra, o sistema NÃO DEVE alterar situação nem status da proposta. (DS-500)<br>ENQUANTO o perfil do usuário não tiver permissão de ver CPF, a exportação DEVE trazer o CPF mascarado. (DS-507, DS-509; RNF 3) |
+| Opcional (recurso do produto incluído ou não) | ONDE <recurso ou configuração existir>, o <sistema> DEVE <resposta>. | ONDE a exportação em Excel estiver habilitada, a tela de avaliação do motor DEVE exibir o botão "Exportar Excel". [ALÉM DA FONTE — decisão do usuário: ilustrativo] |
+| Comportamento indesejado | SE <condição indesejada>, ENTÃO o <sistema> DEVE <resposta>. | SE a importação diária falhar nas 3 tentativas, ENTÃO o sistema DEVE notificar via Teams e manter a base anterior. (DS-98: 3 tentativas antes das 07h, notificar via Teams; manter a base anterior em caso de falha é [ALÉM DA FONTE — decisão do usuário: ilustrativo]) |
+
+- **Não entra:** comportamento de tela; regra sem origem; regra "por referência" sem conteúdo.
+- **Caso Neo (regra citada sem conteúdo):** o DS-393 (NMP) diz que o sistema "deve aplicar a regra de precedência definida" para CPF presente nas listas de bloqueio e de desbloqueio, e a regra não está no card (`downstream_16-11.csv`, 16/11/2026 10h26). No PRD, essa regra é uma RN em EARS com origem, ou uma linha com precedência na tabela de decisão (seção 12).
+- **EARS garante regra bem escrita, não regra certa.** Quem confirma a regra é a área solicitante, na aprovação.
+
+### 6. Critérios de aceite
+
+- **Entra:** cenários Dado/Quando/Então só para **comportamento observável**: caminho feliz, alternativo, borda e falha. Cada cenário cita a RN que prova. Os cards herdam daqui; o cenário com dado concreto fica no card.
+- **EARS e cenário não são a mesma coisa:** EARS diz **o que deve valer**; o cenário diz **como testar**. Uma RN pode ter vários cenários.
+- **Não entra:** RNF em Gherkin (desempenho, segurança e auditoria ficam na seção 11 em EARS); advérbio ("rapidamente"); detalhe de implementação; critério que não vira teste.
+
+### 7. Dependências, perguntas em aberto e aprovação
+
+- **Entra:** o que não depende do time, sempre com dono (papel) e data; pergunta em aberto com quem responde; o histórico de versões com a aprovação de cada uma.
+- **Versão:** 0.x em rascunho; 1.0 na aprovação; 1.x ajuste sem mudança de escopo; **2.0 mudança de escopo**, que reabre a aprovação e exige revisar os cards que citam a versão anterior (regra do v1).
+- **Como a área aprova fora do Git:** exporte o PRD em PDF (ou publique no Drive) com a versão no nome e no rodapé; a área aprova pela transição "Aprovação solicitantes" do Jira, anexando ou linkando aquele PDF; o PO registra na tabela a versão, a data, papel e área, e onde está o PDF. O nome de quem aprovou fica no histórico do Jira, não no documento. [ALÉM DA FONTE — decisão do usuário]
+- **Não entra:** tarefa de desenvolvimento; "a definir" sem dono; nome de pessoa.
+- **Caso Neo (desenvolvimento sem aprovação):** a US-72 (JUDIT) está em APROVAÇÃO SOLICITANTES desde 14/09/2026 (`upstream_16-11.csv`, 16/11/2026 9h51) enquanto o épico DS-466 tem 4 cards em desenvolvimento (`epicos_downstream_16-11.csv`, 16/11/2026 10h26). Sem versão aprovada, o que está sendo construído pode não ser o que a área quer.
+- **Caso Neo (mudança de escopo sem registro):** a US-85 diz que o usuário confirma a equipe "a cada login"; o DS-458 diz que "O login não exige abertura ou confirmação do modal", e a troca passa ao menu do perfil (DS-460) (`upstream_16-11.csv` 9h51 e `downstream_16-11.csv` 10h26, 16/11/2026). Isso é mudança de escopo: exige PRD v2.0, com a nova RN e nova aprovação.
+
+### 8. Apetite (G recomendado, GG obrigatório)
+
+- **Entra:** o teto de tempo que a área aceita pagar, decidido antes da solução (Shape Up, Basecamp). A régua dá a estimativa; o apetite dá o limite. Estimativa acima do apetite → corta-se escopo, não se estica prazo.
+- **Não entra:** ciclos de 6 semanas, mesa de apostas ou o resto do Shape Up; só o apetite é aproveitado. Pontos ou Fibonacci também não: não são prática atual do time.
+
+### 9. Perfis
+
+- **Entra:** perfis de acesso do sistema e atores externos (parceiro, processadora). Perfil que ainda não existe: [A CONFIRMAR] e o dono da definição.
+- **Não entra:** nome de pessoa ou de usuário.
+
+### 10. Fluxo atual × proposto
+
+- **Entra:** a sequência de negócio, uma linha por etapa, com "Hoje" e "Proposto". Em demanda de **esteira**, a tabela de estados e transições (estado de origem, evento, destino, quem dispara, exceção): é o AS-IS que falta na Esteira de Novos.
+- **Não entra:** descrição de tela; códigos de RN dentro do protótipo.
+- **Caso Neo:** 3 dos 31 Bugs do Downstream ligados à movimentação da proposta na esteira ou ao lock da ficha: DS-28, DS-364 e DS-388 (`downstream_16-11.csv`, 16/11/2026 10h26; lista e critério em `../METODOLOGIA.md`, seção 4; classificação própria **[ALÉM DA FONTE — decisão do usuário]**).
+
+### 11. Requisitos não funcionais (EARS)
+
+- **Entra:** só o que é específico da demanda, mensurável e em EARS: auditoria ("QUANDO o motor registrar uma avaliação, o sistema DEVE gravar data, regra aplicada e resultado"), mascaramento, tempo máximo, comportamento quando o serviço externo cai. Em demanda do cartão, o que vem do PCI DSS e da Mastercard listados na Visão do Cartão v6, sem transcrever a norma. Dado de cartão (PAN/CVV) nunca entra em exemplo.
+- **Não entra:** "o sistema deve ser seguro e performático"; RNF em Gherkin.
+
+### 12. Tabela de decisão (completo; obrigatória com gatilho de dinheiro em qualquer trilha)
+
+- **Entra:** uma linha por combinação de condições, com a decisão, a **precedência** (qual linha vence quando duas casam), a **vigência** da regra (RN, versão, início e fim) e **um caso de teste por linha**. Use quando houver motor de regras, decisão automática de crédito ou pagamento.
+- **Não entra:** combinação sem decisão; linha sem teste; regra "vigente" sem data.
+- **Caso Neo (modelo a seguir):** o DS-508 (Quitação Fase 2) testa "um caso por linha da tabela de decisão" (`downstream_16-11.csv`, 16/11/2026 10h26), e o DS-415 define as decisões PAGAR, NAO_PAGAR, PAGAR_PARCIAL e ANALISE_MANUAL. O exemplo `exemplos/quitacao/GDP-76_quitacao-fase-2-motor.md` mostra a tabela preenchida.
+- **Caso Neo (precedência):** a "regra de precedência definida" do DS-393 (NMP) é exatamente uma coluna desta tabela.
+
+### 13. Integrações
+
+- **Entra:** só a lista das contrapartes tocadas pela demanda, com link para o `CONTRATO-DE-INTEGRACAO.md` de cada uma. Integração Konsig ↔ NeoKonsig também entra, como integração entre sistemas distintos.
+- **Não entra:** autenticação, leiaute, erros, horário, endereço de servidor, credencial: isso é do contrato, não do PRD. Contraparte sem contrato: [A CONFIRMAR] e o card que vai escrevê-lo.
+
+### 14. Riscos
+
+- **Entra:** evento incerto → consequência, com probabilidade, impacto, mitigação e dono por papel.
+- **Não entra:** problema que já aconteceu (isso é dependência ou pendência, seção 7).
+
+### 15. Rastreabilidade
+
+- **Entra:** cada RN, RNF e linha da tabela de decisão ligada ao card que a implementa e ao teste que a prova. Preencha a coluna de cards depois do Plano.
+- **Uma regra sem card é escopo esquecido; um card sem regra é escopo inventado.**
+- **Caso Neo:** 15 de 35 épicos do Downstream têm item do GDP associado (`downstream_16-11.csv`, 16/11/2026 10h26); o GDP-76 não tem item associado, e DS-418 e DS-500 não apontam para o GDP.
+
+---
+
+## Referências de mercado
+
+Conteúdo marcado "(via busca)" veio de trechos do buscador, porque a rede da sessão bloqueou a página em 17/11/2026: confira o original antes de citar em documento oficial.
+
+- **PRD ágil, curto e ligado ao épico; escopo e fora de escopo; perguntas em aberto** (Atlassian): https://www.atlassian.com/agile/product-management/requirements
+- **Não objetivos (Non-Goals) no modelo de PRD de Kevin Yien, Square; one-pager de Lenny Rachitsky** (lista de modelos de Lenny Rachitsky) (via busca): https://www.lennysnewsletter.com/p/my-favorite-templates-issue-37
+- **PRD focado no problema, separado do RFC da solução** (HashiCorp): https://www.hashicorp.com/how-hashicorp-works/articles/prd-template
+- **Objetivos e não objetivos; design doc só quando há trade-off** (Google, por Malte Ubl) (via busca): https://www.industrialempathy.com/posts/design-docs-at-google/
+- **EARS, cinco padrões de requisito** (Mavin et al., IEEE RE'09): https://en.wikipedia.org/wiki/Easy_Approach_to_Requirements_Syntax
+- **Apetite: quanto o problema vale, não quanto vai levar** (Shape Up, Basecamp, cap. 3 'Set Boundaries') (via busca): https://basecamp.com/shapeup/1.2-chapter-03
+- **Spec-driven development em Assess: specs longas e difíceis de revisar** (Thoughtworks Technology Radar): https://www.thoughtworks.com/radar/techniques/spec-driven-development
+- **Spec-first, spec-anchored e spec-as-source** (Birgitta Böckeler, martinfowler.com) (via busca): https://www.martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html

@@ -1,6 +1,7 @@
 <!--
 EXEMPLO PREENCHIDO · ADR técnico · Kit de documentação TI Neo Crédito · preenchimento de modelos/ADR.md
-Destino real: docs/adr/ADR-0001_GDP-76_pagamento-quitacao-pagauto-api-bb.md no repositório do Konsig ([A CONFIRMAR] qual repositório, README seção 4.1).
+Destino real: docs/adr/ADR-0001_GDP-76_pagamento-quitacao-pagauto-api-bb.md no repositório do Konsig ([A CONFIRMAR] qual repositório definitivo; até lá, pasta provisória do README do kit, seção 4).
+Formato v1 (16/11/2026): as seções 6 (impacto em documentos) e 8 (DACI) são as que o modelos/ADR.md v2 reserva para ADR de processo ou de documentação; num ADR técnico novo, não as copie.
 Um ADR, uma decisão: este registra o componente de pagamento. A ordem das fases (integração bancária por último) é o ADR-0002.
 Fontes: contexto-mestre.md, seção 10 (16/11/2026); insumos/quitacao-estado-e-faseamento.md e insumos/sistemas-e-tecnologias.md (16/11/2026);
 downstream_16-11.csv e epicos_downstream_16-11.csv (16/11/2026 10h26); upstream_16-11.csv e gdp_16-11.csv (16/11/2026 9h51).

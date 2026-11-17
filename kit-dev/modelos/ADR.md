@@ -1,141 +1,79 @@
-<!--
-MODELO · Registro de Decisão (ADR, Architecture Decision Record) · Kit de documentação TI Neo Crédito · v1.0 · 16/11/2026 · proposta
-Como usar: copie para docs/adr/ADR-<nnnn>_<chave do item>_<assunto>.md no repositório do sistema afetado.
-Um ADR registra UMA decisão. Duas decisões, dois ADRs.
-Um ADR aceito não é editado no mérito: se a decisão mudar, abre-se um ADR novo que o substitui, e o antigo passa a "Substituído por ADR-nnnn".
-Apague os blocos "Orientação" antes de enviar para revisão.
-Exemplos preenchidos: exemplos/processo/ADR-0001_CHAVE-A-CONFIRMAR_nota-vigencia-fluxo-v3.md (mudança de documentação) e exemplos/quitacao/ADR-0001 e ADR-0002 (técnicos, Konsig).
--->
+# Modelo · Registro de Decisão (ADR) · kit-dev v2 · 17/11/2026 · proposta
 
-# ADR-<nnnn> · <Decisão em uma frase, no infinitivo>
+**Tipo (Diátaxis):** explicação. Um ADR registra uma decisão e o porquê dela. Também serve de memória para o agente de IA e para o dev novo: o que está aqui como descartado não se reabre sem fato novo (regra do contexto-mestre: "Não reabrir decisão consolidada sem fato novo").
 
-## 1. Identificação
+**Quando usar.** ADR independe do tamanho (PP a GG). Abra um quando houver:
+1. escolha de tecnologia, biblioteca, padrão de integração ou de dados que outro time terá de seguir;
+2. decisão que afeta os dois sistemas (Konsig e NeoKonsig), como a delimitação de fonte única de verdade entre eles;
+3. mudança de documentação ou de padrão de processo (Fluxo V3, Políticas Explícitas V1, guia de cards, régua de tamanho ou este kit);
+4. decisão que inverte ou substitui um ADR anterior.
+Com o gatilho de dinheiro do kit (pagamento, liquidação, repasse, remuneração de correspondente, decisão automática de crédito), o ADR é obrigatório.
 
-| Campo | Valor |
+**Quando não usar.** Escolha local que se desfaz dentro de um card: escreva só o Y-statement no card ou no PR. Plano de execução vai para o Plano de Implementação, e não para o ADR.
+
+**Onde fica.** `docs/adr/ADR-<nnnn>_<chave do item>_<assunto>.md` no repositório do sistema, com numeração por repositório (mesmo caminho do v1, lido pelo agente de IA conforme o AGENTS.md). Exemplo: `docs/adr/ADR-0001_GDP-76_pagamento-quitacao-pagauto-api-bb.md`. Enquanto o repositório do Konsig que recebe `docs/` estiver [A CONFIRMAR] (DS-175/DS-495), use a pasta provisória do README. ADR de processo (sem sistema) fica no repositório do Comitê de Agilidade **[ALÉM DA FONTE — decisão do usuário]**. Ferramenta: nenhuma obrigatória (adr-tools opcional) **[ALÉM DA FONTE — decisão do usuário]**.
+
+**Regras.** ADR aceito não se edita: escreve-se outro que o substitui, e o antigo passa a "Substituído por ADR-n". As consequências de um ADR viram o contexto do próximo. Um sistema por ADR: se valer para Konsig e NeoKonsig, abra um em cada repositório, com referência cruzada.
+
+## Cópia em branco
+
+```markdown
+# ADR-NNNN · <decisão em uma frase, no infinitivo>
+
+> Y-statement (opcional): No contexto de <caso>, diante de <força ou requisito>, decidimos por <opção>, descartando <alternativas>, para atingir <benefício>, aceitando <custo>.
+
+| Status | Proposto · Aceito · Rejeitado · Substituído por ADR-n · Obsoleto |
 |---|---|
-| Número | ADR-<nnnn> (sequencial por repositório) |
-| Tipo | [ ] Técnica (tecnologia, arquitetura, integração, dados) · [ ] Padrão de desenvolvimento · [ ] **Mudança de documentação ou de processo** |
-| Status | <Proposto · Aceito · Rejeitado · Substituído por ADR-nnnn · Obsoleto> |
-| Sistema afetado | <**Konsig** (legado) · **NeoKonsig** (reescrita) · outro sistema do Inventário · Processo da TI (sem sistema)> |
-| Item que motivou | <GDP-n · US-n · DS-n> |
-| Data da proposta | <dd/mm/aaaa> |
-| Data da decisão | <dd/mm/aaaa, quando Aceito ou Rejeitado> |
-| Revisar em | <data ou evento: "retro da S22", "fim do experimento"> |
-| Substitui | <ADR-nnnn ou "nenhum"> |
+| Data | dd/mm/aaaa (proposta) · dd/mm/aaaa (decisão) |
+| Sistema (um só) | Konsig · NeoKonsig · outro do Inventário · Processo da TI (sem sistema) |
 
-> **Orientação.** "Sistema afetado" admite um único sistema. Se a decisão vale para Konsig e NeoKonsig, abra um ADR em cada repositório, com referência cruzada, porque as tecnologias são diferentes e a decisão pode ter consequências diferentes em cada um. Decisão de processo (sem sistema) fica no repositório deste comitê ou na página do comitê no Confluence **[ALÉM DA FONTE — decisão do usuário]**.
->
-> **Status, o que cada um quer dizer:**
-> - **Proposto:** escrito, em discussão. Não autoriza implementação.
-> - **Aceito:** decidido pelo responsável do DACI (seção 8). Passa a valer.
-> - **Rejeitado:** discutido e recusado; o registro fica para que a discussão não recomece do zero.
-> - **Substituído:** outro ADR tomou o lugar; indicar qual.
-> - **Obsoleto:** deixou de se aplicar sem substituto (por exemplo, o componente foi desativado).
+## Contexto
+<!-- A situação, a força que obriga a decidir agora e as restrições. Cada fato com fonte e data. Sem opinião sem fato. -->
 
----
+## Decisão
+<!-- "Decidimos <ação>." No presente, com alcance: onde vale, a partir de quando, para quem. -->
 
-## 2. Contexto
+## Alternativas consideradas
+<!-- Pelo menos duas reais, além de "não fazer nada". Se só existe uma opção viável, registre a lacuna, e não como alternativa inventada. -->
+### A · <escolhida> — Prós: … · Contras: …
+### B · <alternativa> — Prós: … · Contras: …
+### Ideias abandonadas
+<!-- Caminho descartado + motivo do abandono. É o que impede a IA ou o dev novo de propor de novo. -->
+- <ideia> — abandonada porque <motivo, com fonte>.
 
-<Qual a situação, qual a força que obriga a decidir agora e quais restrições existem. Fatos com fonte e data.>
+## Consequências
+<!-- Uma decisão sem consequência negativa registrada quase sempre foi mal analisada. -->
+- Positivas: … · Negativas ou custo: …
+- Reversão: como desfazer e quanto custa (ou "não há rollback; contingência: …").
+- Dados e regulação (obrigatório em qualquer ADR): CHECKLIST-DADOS-E-REGULACAO.md respondido? (link) · aciona DPO? sim/não
 
-> **Orientação.** Entra: o problema, as restrições (prazo, norma, sistema legado, capacidade) e os fatos que sustentam a decisão, cada um com fonte. Não entra: a decisão (vai na seção 3); opinião sem fato.
->
-> **Exemplo (mudança de documentação):** O Fluxo de Desenvolvimento TI V3 cita Fibonacci, que não é praticado pelo time. A decisão de 10/11/2026 prevê o uso somente depois do refinamento, e está em revisão desde 13/11/2026 com a proposta de PP a GG por projeto e "cabe ou quebra" por card. Uma IA que leia o Fluxo V3 sem ressalva recomenda uma prática inexistente (`D2-documentos-ia/D2-documentos-para-a-IA.md`, seção 1.1).
->
-> **Exemplo (técnica, Konsig):** O Konsig não tem pipeline de CI/CD (US-43, Backlog) e vai receber construção nova em 2027 (cartão, decisão de 13/11/2026). O padrão de release e deploy está em definição no DS-550 (9 cards em Backlog), começando pelo Keycloak (`epicos_downstream_16-11.csv`, 16/11/2026 10h26).
+## Links
+Card: DS-n · PRD: docs/… · ADR substituído: ADR-n · PR que aplicou: <link>
+```
 
----
+**Status, o que cada um quer dizer:** *Proposto*: escrito e em discussão, não autoriza implementação. *Aceito*: decidido pelo responsável, passa a valer. *Rejeitado*: discutido e recusado; o registro fica para que a discussão não recomece do zero. *Substituído por ADR-n*: outro ADR tomou o lugar. *Obsoleto*: deixou de se aplicar sem substituto, por exemplo porque o componente foi desativado.
 
-## 3. Decisão
+**Exemplo de lacuna bem registrada:** no ADR-0001 da Quitação (PagAuto + API BB), "Só uma alternativa ativa aparece nas fontes; a B fica como lacuna, e não como alternativa inventada" (`exemplos/quitacao/ADR-0001_GDP-76_pagamento-quitacao-pagauto-api-bb.md`).
 
-<"Decidimos <ação>." Uma decisão, no presente, com o alcance explícito: onde vale, a partir de quando, para quem.>
+## Anexo opcional · só para ADR de processo ou de documentação
 
-> **Orientação.** Entra: o que passa a ser feito, com alcance e início de vigência. Não entra: plano de execução detalhado (vai para o Plano de Implementação); justificativa longa (vai para o contexto e as alternativas).
->
-> **Exemplo:** Decidimos incluir no início do Fluxo de Desenvolvimento TI V3 uma nota de vigência informando que o Fibonacci citado no documento não descreve a prática atual e remetendo à decisão vigente do Comitê de Agilidade. Vale a partir da publicação da nota, para todos os leitores do documento, inclusive assistentes de IA.
+Acrescente ao final do ADR. Não use em decisão técnica dentro de um sistema.
 
----
+1. **Impacto em documentos:** tabela com documento, seção afetada, o que muda, papel responsável, prazo e feito [ ]. Entra todo documento que passaria a dizer algo falso. O ADR só passa a Aceito com a lista completa.
+2. **DACI:** Driver (quem escreve), Approver (um só: tech lead para decisão técnica; Comitê de Agilidade, com a gestão da TI, para processo **[ALÉM DA FONTE — decisão do usuário]**), Contributors, Informed.
+Modelo preenchido: `exemplos/processo/ADR-0001_CHAVE-A-CONFIRMAR_nota-vigencia-fluxo-v3.md`.
 
-## 4. Alternativas consideradas
+## Decisões reais que pedem ADR (só a lista; os ADRs não estão escritos)
+- JUDIT → CAF: contingência e critério de failover (GDP-138, DS-272).
+- Cartão: SSOT Konsig × fornecedores; arquivo × API Conta Nova; CVV nunca gravado nos sistemas da Neo; PAN e CVV mascarados em logs e mensagens (R18 da Visão v6, 03/11/2026).
+- Autenticação por header em vez de token na URL (DS-81).
+- Padrão de release (DS-550).
+- Encerramento do NeoKonsig na Entrega 1 [A CONFIRMAR registro formal].
+- Modo sombra e critério de corte da Quitação (DS-500/DS-507).
 
-| Alternativa | Prós | Contras | Por que não foi escolhida |
-|---|---|---|---|
-| <A · a escolhida> | | | — |
-| <B> | | | <motivo> |
-| <C · não fazer nada> | | | <motivo> |
-
-> **Orientação.** Entra: pelo menos duas alternativas reais, além de "não fazer nada". Não entra: alternativa inventada só para perder. Se só existe uma opção viável, diga por quê.
->
-> **Exemplo:** B · Reescrever o Fluxo V3 inteiro agora: resolve de vez, mas depende da decisão em aberto sobre PP a GG e seria refeito depois. C · Não fazer nada: a IA e quem chega ao time continuam lendo uma prática que não existe.
-
----
-
-## 5. Consequências
-
-| Tipo | Consequência |
-|---|---|
-| Positiva | <o que melhora, com indicador se houver> |
-| Negativa ou custo | <o que piora, custo, dívida aceita> |
-| Risco | <o que pode dar errado e como será percebido> |
-| Reversão | <como desfazer e quanto custa> |
-
-> **Orientação.** Entra: efeitos para o sistema, para o time e para a operação, inclusive os ruins. Uma decisão sem consequência negativa registrada quase sempre foi mal analisada.
->
-> **Exemplo (técnica, Konsig):** Negativa: até o pipeline existir, cada deploy do Konsig exige passos manuais descritos no Plano de Implementação, com tempo de Waiting for deploy maior. Risco: regressão em fluxo não coberto pela regressão automatizada (DS-53: 3 de 12 cards concluídos, `epicos_downstream_16-11.csv`, 16/11/2026 10h26).
-
----
-
-## 6. Impacto em documentos existentes
-
-| Documento | ID no Drive ou caminho | Seção afetada | O que muda | Responsável pela atualização (papel) | Prazo | Feito? |
-|---|---|---|---|---|---|---|
-| Fluxo de Desenvolvimento TI V3 | `14F0QqrDgqEmAxzHdrdtLYhWNYrJiKdsr` | <seção> | <mudança> | <papel> | <data> | [ ] |
-| Políticas Explícitas V1 | `14vzbIjpsUxObg8uha21YlUS6DtBTTqf7` | <ex.: 3.6 Requisitos técnicos; 3.8 dimensionamento> | | | | [ ] |
-| Inventário de Sistemas | `1LwSqMSxgldjHxNQmj34uDAI_refDOkWG` | <linha do sistema> | | | | [ ] |
-| Konsig Arquitetura | `1u3NsVaAXvnayi6I7eCJ4z41fC2yh1naP` | | | | | [ ] |
-| Guia "Como escrever um card" (InnoviaX v1.0) | arquivo do projeto, sem ID no Drive | <seção> | | | | [ ] |
-| `CLAUDE.md` do repositório | `CLAUDE.md` | <seção> | | | | [ ] |
-| PRDs e Planos em execução | `docs/prd/...`, `docs/planos/...` | | | | | [ ] |
-| Cards abertos afetados | <chaves DS> | bloco 1 (referência) e bloco 3 (DoR) | | | | [ ] |
-
-> **Orientação.** Esta seção é obrigatória em ADR de **mudança de documentação ou de processo** e recomendada nos demais. Entra: todo documento que, depois desta decisão, passaria a dizer algo falso. Não entra: documento só "relacionado". O ADR só passa a Aceito quando a lista estiver completa; ele só se considera aplicado quando todas as linhas estiverem com [x]. Os IDs do Drive são os registrados no `contexto-mestre.md`, seção 3 (16/11/2026); os documentos não foram recebidos no pacote de fontes e o conteúdo atual de cada um é [A CONFIRMAR].
->
-> **Exemplo:** Fluxo de Desenvolvimento TI V3 · início do documento e seção que cita Fibonacci · incluir nota de vigência · responsável pela gestão do processo de desenvolvimento · [A CONFIRMAR data].
-
----
-
-## 7. Conformidade e segurança
-
-| Pergunta | Resposta |
-|---|---|
-| A decisão muda onde ou como dado pessoal é tratado? | <Não · Sim: o que muda; parecer do DPO em <data>> |
-| Envolve dado de cartão (PAN, CVV, trilha)? | <Não · Sim: impacto no escopo do ambiente de dados de cartão> |
-| Envolve fornecedor novo ou processamento em nuvem? | <Não · Sim: fornecedor, região, contrato> |
-
-> **Orientação.** Responder às três perguntas sempre, mesmo que seja "Não". Não transcrever trecho de norma; citar a norma pelo nome e indicar o requisito interno que ela gera.
-
----
-
-## 8. Quem decide (DACI)
-
-| Papel DACI | Quem (papel ou fórum) | Observação |
-|---|---|---|
-| **D**river (conduz a decisão) | <papel que escreveu o ADR> | Prepara o ADR e leva ao fórum |
-| **A**pprover (decide) | <tech lead para decisão técnica de um sistema · Comitê de Agilidade, com a gestora da TI, para mudança de documentação ou de processo> | Um único aprovador |
-| **C**ontributors (consultados) | <PO, QA, infraestrutura, Segurança e Conformidade> | |
-| **I**nformed (informados) | <time do sistema, áreas usuárias> | |
-
-> **Orientação.** O Comitê de Agilidade registra suas decisões em DACI, em reuniões de 60 minutos com um tema por reunião (decisão de 10/11/2026). Um ADR de mudança de documentação ou de processo é levado ao comitê como tema próprio. A atribuição de "Approver" por tipo de decisão é proposta deste modelo **[ALÉM DA FONTE — decisão do usuário]**.
-
----
-
-## 9. Links
-
-| Item | Link |
-|---|---|
-| Item do Jira que motivou | <GDP-n / US-n / DS-n> |
-| Registro da decisão no comitê (página do Confluence) | <link> |
-| PRD relacionado | `docs/prd/...` |
-| Plano de Implementação relacionado | `docs/planos/...` |
-| ADR substituído ou relacionado | `docs/adr/...` |
-| Pull request que aplicou a decisão | <link> |
+## Referências de mercado
+- Nygard, *Documenting Architecture Decisions* (2011): https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions
+- MADR (variante mínima): https://github.com/adr/madr
+- Fowler, bliki: https://www.martinfowler.com/bliki/ArchitectureDecisionRecord.html
+- Zimmermann, Y-statements: https://medium.com/olzzio/y-statements-10eb07b5a177
+- HashiCorp, RFC template (abandoned ideas): https://www.hashicorp.com/how-hashicorp-works/articles/rfc-template

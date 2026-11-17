@@ -10,7 +10,7 @@ Base de dados: extrações do Jira de 16/11/2026 (GDP e Upstream às 9h51; Downs
 | 1 · Régua de tamanho × tempo (PP a GG) | `D1-pool/regua-tamanho-tempo-2027.xlsx` (comece pela aba **Resumo**, em linguagem simples; depois Régua e Demandas hoje) · `D1-pool/regua-tamanho-tempo.md` (método, leitura e decisões) |
 | Apresentação · Pool 2027 com e sem NeoKonsig | `apresentacao/pool-2027-com-sem-neokonsig.html` (abra no navegador; escolha a premissa no topo; botão Modo apresentação) |
 | 2 · Documentos de que a IA precisa · padrões de mercado | `D2-documentos-ia/D2-documentos-para-a-IA.md` |
-| 2 · Kit de documentação para os devs (PRD · ADR · Plano de Implementação · Card · CLAUDE.md) | `kit-dev/README.md` (comece por aqui) · `kit-dev/modelos/` (modelos em branco) · `kit-dev/exemplos/` (Quitação Fase 2, GDP-76, preenchida; ADR de mudança de documentação do Fluxo V3) |
+| 2 · Kit de documentação para os devs, v2 (11 modelos por trilha de tamanho e gatilho de risco: PRD · Plano · Card · AGENTS.md · ADR · Contrato de integração · Runbook · Postmortem · Checklist de dados · Sistema · Passagem) | `kit-dev/README.md` (comece por aqui: qual documento usar) · `kit-dev/METODOLOGIA.md` (pesquisa de mercado e matriz projeto × documento) · `kit-dev/modelos/` · `kit-dev/exemplos/` (Quitação Fase 2, GDP-76, PRD v2 preenchido; ADR de mudança de documentação do Fluxo V3) |
 | 3 · Indicadores para 2027 | `D3-indicadores/D3-indicadores-2027.md` (seção 5.4: medição atual S15–S19) · seção Indicadores do HTML |
 | Insumos | `insumos/quitacao-estado-e-faseamento.md` · `insumos/sistemas-e-tecnologias.md` · `insumos/Esteira de Novos - Konsig.md` |
 

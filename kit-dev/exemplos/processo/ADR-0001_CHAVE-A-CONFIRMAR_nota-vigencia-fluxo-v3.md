@@ -1,10 +1,10 @@
 <!--
 EXEMPLO PREENCHIDO · ADR de MUDANÇA DE DOCUMENTAÇÃO · Kit de documentação TI Neo Crédito · preenchimento de modelos/ADR.md
-Destino real: repositório do Comitê de Agilidade ou página do comitê no Confluence [ALÉM DA FONTE — decisão do usuário], conforme modelos/ADR.md, seção 1.
+Destino real: repositório do Comitê de Agilidade ou página do comitê no Confluence [ALÉM DA FONTE — decisão do usuário], conforme modelos/ADR.md, "Onde fica".
 Numeração: ADR-0001 do repositório do comitê (sequência própria, independente da do Konsig).
-Chave: a mudança ainda não tem item no Jira. O nome do arquivo usa CHAVE-A-CONFIRMAR até que se abra uma Tarefa para ela; então o arquivo é renomeado (README, seção 4.2).
+Chave: a mudança ainda não tem item no Jira. O nome do arquivo usa CHAVE-A-CONFIRMAR até que se abra uma Tarefa para ela; então o arquivo é renomeado (README, seção 5).
 Fontes: contexto-mestre.md, seções 3, 6, 7 e 11 (16/11/2026); D2-documentos-ia/D2-documentos-para-a-IA.md, seções 1.1 e 5 (documento 4);
-modelos/CARD.md e modelos/CLAUDE.md deste kit (16/11/2026); metricas_downstream_16-11.json (16/11/2026 10h26).
+modelos/CARD.md e o modelo CLAUDE.md do kit v1 (16/11/2026; no kit v2 substituído por modelos/AGENTS.md, 17/11/2026); metricas_downstream_16-11.json (16/11/2026 10h26).
 O conteúdo atual do Fluxo de Desenvolvimento TI V3 e das Políticas Explícitas V1 não foi recebido: as seções afetadas são [A CONFIRMAR].
 -->
 
@@ -39,7 +39,7 @@ O conteúdo atual do Fluxo de Desenvolvimento TI V3 e das Políticas Explícitas
 
 Decidimos incluir no início do Fluxo de Desenvolvimento TI V3 a nota de vigência definida no D2 (seção 5, documento 4):
 
-> "O Fibonacci citado aqui não descreve a prática atual. Decisão vigente (10/11/2026): uso somente depois do refinamento, em revisão no Comitê de Agilidade."
+> "O Fibonacci citado aqui não é praticado pelo time. A decisão de 10/11/2026 (Fibonacci só depois do refinamento) está em revisão desde 13/11/2026; o tamanho de projeto proposto é PP/P/M/G/GG (D1-pool/regua-tamanho-tempo.md, proposta sem decisão)."
 
 Vale a partir da publicação da nota, para todos os leitores do documento, inclusive assistentes de IA. A nota é provisória: quando o comitê decidir sobre PP a GG e "cabe ou quebra", ela é trocada pelo texto da decisão, por um novo ADR que substitua este.
 
@@ -61,7 +61,7 @@ Fica fora desta decisão a conferência dos status do Fluxo V3 com os status em 
 
 | Tipo | Consequência |
 |---|---|
-| Positiva | Leitores e assistentes de IA deixam de tomar o Fibonacci como prática atual. Verificável: o Fluxo V3 publicado com a nota, e o `CLAUDE.md` dos repositórios sem instrução contraditória |
+| Positiva | Leitores e assistentes de IA deixam de tomar o Fibonacci como prática atual. Verificável: o Fluxo V3 publicado com a nota, e o `AGENTS.md` dos repositórios (com o `CLAUDE.md` contendo só `@AGENTS.md`) sem instrução contraditória |
 | Negativa ou custo | O documento passa a ter uma nota que remete a uma decisão em revisão; quem lê precisa consultar o registro do comitê |
 | Risco | A nota ficar desatualizada quando o comitê decidir. Percebido na revisão prevista na seção 1 ("Revisar em") |
 | Reversão | Retirar a nota do documento; custo baixo |
@@ -74,9 +74,9 @@ Fica fora desta decisão a conferência dos status do Fluxo V3 com os status em 
 |---|---|---|---|---|---|---|
 | Fluxo de Desenvolvimento TI V3 | `14F0QqrDgqEmAxzHdrdtLYhWNYrJiKdsr` | Início do documento; trecho que cita Fibonacci [A CONFIRMAR seção] | Incluir a nota de vigência da seção 3 | Gestão do processo de desenvolvimento (dono sugerido no D2) | [A CONFIRMAR] | [ ] |
 | Políticas Explícitas V1 | `14vzbIjpsUxObg8uha21YlUS6DtBTTqf7` | Seção 3.8 (dimensionamento inicial) e qualquer trecho que cite Fibonacci ou pontos [A CONFIRMAR: documento não recebido] | Se citar Fibonacci como prática, receber a mesma nota; se não citar, nenhuma mudança | Gestão do processo de desenvolvimento | [A CONFIRMAR] | [ ] |
-| Modelo de card do kit | `kit-dev/modelos/CARD.md` | Bloco 1, "Nota Neo · estimativa" | Citar este ADR como registro da ressalva | Responsável pelo kit | Na aceitação deste ADR | [ ] |
-| Modelo de `CLAUDE.md` do kit | `kit-dev/modelos/CLAUDE.md` | Seção de documentação ("Não afirme que o time usa Fibonacci ou planning poker") | Citar este ADR como fonte da instrução | Responsável pelo kit | Na aceitação deste ADR | [ ] |
-| `CLAUDE.md` dos repositórios do Konsig e do NeoKonsig | `CLAUDE.md` de cada repositório | Mesma instrução | Conferir que a instrução existe e é a mesma | Tech lead de cada sistema | [A CONFIRMAR] | [ ] |
+| Modelo de card do kit | `kit-dev/modelos/CARD.md` | Seção 4, "Nota Neo · estimativa" | Citar este ADR como registro da ressalva | Responsável pelo kit | Na aceitação deste ADR | [ ] |
+| Modelo de `AGENTS.md` do kit (substitui o modelo `CLAUDE.md` do v1) | `kit-dev/modelos/AGENTS.md` | Seção 2 (constituição): instrução "Não afirme que o time usa Fibonacci ou planning poker", que estava na seção 7 do `CLAUDE.md` v1; incluída como regra 8 em 17/11/2026, com fonte contexto-mestre §3 e §11 | Citar este ADR como fonte da regra 8 | Responsável pelo kit | Na aceitação deste ADR | [ ] |
+| `AGENTS.md` dos repositórios do Konsig e do NeoKonsig | `AGENTS.md` na raiz de cada repositório | Mesma instrução | Conferir que a instrução existe e é a mesma | Tech lead de cada sistema | [A CONFIRMAR] | [ ] |
 | Demanda 2 · documento 4 do conjunto mínimo | `D2-documentos-ia/D2-documentos-para-a-IA.md` | Seção 5, linha 4 ("Fluxo de Desenvolvimento TI V3 com nota de vigência") | Situação passa de "Existe, não recebido" para "Nota aplicada", com referência a este ADR; o texto da nota do critério de pronto é o da seção 3 deste ADR | Responsável pela Demanda 2 | Na aplicação da nota no Fluxo V3 | [ ] |
 | Melhorias Scrum TI V2 | `1VHKIDjuAW6Vdezh1uOgxgrpCHPoAILmX` | — | Nenhuma: são sugestões não aplicadas e ficam fora da base da IA (D2, seção 5) | — | — | Não se aplica |
 
@@ -99,7 +99,7 @@ Fica fora desta decisão a conferência dos status do Fluxo V3 com os status em 
 | **D**river | Gestão do processo de desenvolvimento | Dono sugerido no D2 para o documento 4 **[ALÉM DA FONTE — decisão do usuário]** |
 | **A**pprover | Comitê de Agilidade, em reunião com este tema como pauta própria (decisão de 10/11/2026: um tema por reunião, registro em DACI) | **[ALÉM DA FONTE — decisão do usuário]**: atribuição proposta pelo modelo de ADR |
 | **C**ontributors | PO, tech leads do Konsig e do NeoKonsig, QA | |
-| **I**nformed | Time de desenvolvimento; quem mantém os `CLAUDE.md` | |
+| **I**nformed | Time de desenvolvimento; quem mantém os `AGENTS.md` dos repositórios | |
 
 ---
 

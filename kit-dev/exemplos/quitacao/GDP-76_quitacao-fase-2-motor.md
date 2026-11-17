@@ -1,255 +1,168 @@
 <!--
-EXEMPLO PREENCHIDO · PRD curto (tamanho M) · Kit de documentação TI Neo Crédito · preenchimento de modelos/PRD.md
-Destino real: docs/prd/GDP-76_quitacao-fase-2-motor.md no repositório do Konsig ([A CONFIRMAR] qual repositório, README seção 4.1).
-Seções obrigatórias do PRD curto: 1, 2, 3, 4, 7, 10, 11, 14, 15 e 16. As demais foram preenchidas onde as fontes trazem conteúdo; onde não trazem, "Não se aplica" com o motivo.
-Fontes, somente: contexto-mestre.md, seção 10 (16/11/2026); insumos/quitacao-estado-e-faseamento.md (16/11/2026);
-downstream_16-11.csv (16/11/2026 10h26: DS-500, DS-501, DS-503 a DS-509, DS-415, DS-416, DS-418); upstream_16-11.csv (16/11/2026 9h51: US-69);
-gdp_16-11.csv (16/11/2026 9h51: GDP-76); D1-pool/regua-tamanho-tempo.md (v1, 16/11/2026).
-Limite de fonte: o Documento de Requisitos V04 (26/10/2026), de onde os cards tiram os códigos ES, RF, RN, RNF, PC e PRE, não está no pacote.
-Esses códigos são citados como "Doc. V04 <código>" para não se confundirem com a numeração RNxx deste PRD. As descrições do DS-500, DS-501, DS-503 e DS-505 chegaram truncadas na extração.
+EXEMPLO · PRD v2 núcleo (trilha M) + tabela de decisão · modelos/PRD.md v2.0 · 17/11/2026. Substitui a v1 (16/11/2026); fatos, chaves e [A CONFIRMAR] mantidos.
+Destino: docs/prd/ do repositório do Konsig [A CONFIRMAR qual, DS-175/DS-495].
+Fontes: gdp_16-11.csv e upstream_16-11.csv (16/11/2026 9h51); downstream_16-11.csv e epicos_downstream_16-11.csv (16/11/2026 10h26); previsao-entregas-2026-v02.txt (06/11/2026); contexto-mestre.md §10 e insumos/quitacao-estado-e-faseamento.md (16/11/2026).
+Limite: o Documento de Requisitos V04 (26/10/2026) não foi recebido; seus códigos aparecem como "V04 <código>". DS-500, DS-501, DS-503 e DS-505 chegaram truncados.
 -->
 
 # Executar o motor de validação da quitação em modo sombra
 
-## 1. Identificação
+**Use este exemplo quando** a demanda for M e decidir dinheiro: núcleo + tabela de decisão + ADR + corte no Plano. **Não use quando** for PP/P sem dinheiro (CARD.md ou núcleo sem tabela) ou G/GG (falta apetite e seções 8–15).
 
-### 1.1 Dados do projeto
+**Trilha:** M, 8 cards (`D1-pool/pool-2027-plano.xlsx`; régua proposta, sem decisão). **Gatilhos:** dinheiro (DS-415), dado pessoal (DS-507/DS-509), migração planilha → sombra → efeito real (DS-500). **Ligados:** [Plano DS-500](DS-500_plano-quitacao-fase-2.md) · [ADR-0001 PagAuto + API BB](ADR-0001_GDP-76_pagamento-quitacao-pagauto-api-bb.md) · [ADR-0002 ordem das fases](ADR-0002_GDP-76_ordem-das-fases-quitacao.md).
 
-| Campo | Valor |
-|---|---|
-| Nome do projeto | Quitação · Fase 2 · Motor de validação e tela de visualização |
-| Sistema | **Konsig** (legado). Este documento não trata do NeoKonsig. |
-| Item GDP | GDP-76 · [KON] SISTEMATIZAÇÃO DA QUITAÇÃO |
-| Itens Upstream | US-69 (CONCLUÍDO UPSTREAM em 26/10/2026) |
-| Épico(s) Downstream | DS-500 (8 cards, todos em BACKLOG, sem sprint; o épico está na Sprint 19) |
-| Solicitante / área | Financeiro |
-| Responsável pelo documento | Analista funcional |
-| Data de abertura | 16/11/2026 |
-| Prazo esperado pela área | Não informado. Posição no pool de 2027: jan/27 (`D1-pool/pool-2027-plano.xlsx`, aba Pool 2027, linha 6) |
-| Prioridade no GDP | Medium (`gdp_16-11.csv`, 16/11/2026 9h51), embora o projeto seja prioridade da empresa (`contexto-mestre.md`, seção 10). Divergência registrada na seção 13, R03 |
-| Classe de serviço | Standard (campo Classe do DS-500 e dos 8 cards) |
-| Risco | [A CONFIRMAR: nenhuma fonte classifica o risco da demanda] |
-| Vinculado ao PDTI | [A CONFIRMAR: o PDTI 2026–2028 recebido não cita a Quitação] |
-| Natureza | [ ] Tem potencial financeiro · [ ] Gera atendimento · [x] Reduz fluxo operacional · [ ] Regulatória. Base: ganho "Eficiência operacional" da Fase 2 na Previsão de entregas V02 (06/11/2026) **[ALÉM DA FONTE — decisão do usuário: correspondência entre o ganho da planilha e a Natureza]** |
-| Status do documento | Rascunho |
-| Documentos relacionados | Documento de Requisitos V04 (26/10/2026, não recebido) · `ADR-0001_GDP-76_pagamento-quitacao-pagauto-api-bb.md` · `ADR-0002_GDP-76_ordem-das-fases-quitacao.md` · `DS-500_plano-quitacao-fase-2.md` · protótipo "Quitação · Avaliação do motor" (citado no DS-505, não recebido) |
+## 1. Cabeçalho
 
-### 1.2 Versionamento
-
-| Data | Responsável (papel) | Versão | Descrição da alteração |
+| Sistema | Chave Jira | Natureza | Status |
 |---|---|---|---|
-| 16/11/2026 | Analista funcional | 0.1 | Elaboração do documento a partir do épico DS-500 e dos cards DS-501 e DS-503 a DS-509. |
+| **Konsig** | GDP-76 (Medium, EM DOWNSTREAM) · US-69 (CONCLUÍDO UPSTREAM, 26/10/2026) · DS-500 (épico na Sprint 19, `downstream_16-11.csv`; 8 cards filhos em BACKLOG, sem sprint, `epicos_downstream_16-11.csv`; 16/11/2026 10h26) | Nova funcionalidade (DS-500, `downstream_16-11.csv`, 16/11/2026 10h26) | Rascunho · v0.2 |
 
----
+Ganho: Eficiência operacional (Previsão V02, célula G17, 06/11/2026), realizado só com os efeitos; nesta fase, sem ganho de tempo (§4).
 
-## 2. Problema
+Risco: [A CONFIRMAR, sem classificação]. PDTI: [A CONFIRMAR, o PDTI 2026–2028 não cita a Quitação].
 
-O Financeiro executa a quitação de dívida e o pagamento residual "de maneira manual através de um EXCEL", com consequência registrada de "Risco financeiro e de ratreamento" [sic] (US-69). O processo é "predominantemente manual (Konsig + planilhas + WhatsApp + portais bancários)" (DS-418). Para decidir o pagamento, o Financeiro depende do download do relatório e das fórmulas da planilha (DS-501 e DS-503, códigos D01 e D02, sem descrição nas fontes [A CONFIRMAR]). A Fase 1 (DS-418) entregou a tela Administração de Quitação, mas ela é apenas cadastral: nenhuma regra é aplicada a proposta real (`contexto-mestre.md`, seção 10). Volume diário de propostas em AND - AGUARD QUITACAO e valor envolvido: [A CONFIRMAR com o Financeiro].
+**Dados e regulação** ([checklist](../../modelos/CHECKLIST-DADOS-E-REGULACAO.md), Parte A):
+- **A1** Sim: CPF e dados da proposta (grupo, convênio, consignatária, valor, vencimento), sem terceiro. Perfis com acesso [A CONFIRMAR]; retenção [A CONFIRMAR com o DPO].
+- **A2** Sim, aciona o DPO: exportação com CPF leva dado para fora do sistema (DS-509). Onde o arquivo fica e por quanto tempo [A CONFIRMAR].
+- **A3** Sim: registro de cada avaliação (RN05, DS-504); retenção [A CONFIRMAR].
+- **A4** Não: a API do BB é da Fase 4. **A5–A7** Não se aplica.
 
----
+## 2. Problema e por que agora
 
-## 3. Objetivo e métrica de sucesso
+O Financeiro faz a quitação "de maneira manual através de um EXCEL", com "Risco financeiro e de ratreamento" [sic] (US-69), num processo "predominantemente manual (Konsig + planilhas + WhatsApp + portais bancários)" (DS-418). A decisão de pagar sai das fórmulas da planilha (DS-501, DS-503; códigos D01 e D02 [A CONFIRMAR]). A Fase 1 (DS-418) só cadastra regras: nenhuma roda sobre proposta real (`contexto-mestre.md` §10). Volume diário e valor: [A CONFIRMAR com o Financeiro].
 
-| Objetivo | Métrica | Linha de base (fonte e data) | Meta | Quando medir |
-|---|---|---|---|---|
-| Aplicar às propostas reais as regras cadastradas na Fase 1 sem alterar nenhuma proposta | Propostas alteradas pelo motor após as execuções | Não existe: o motor não roda hoje | Zero (DS-508: "confirmação de que nenhuma proposta foi alterada após as execuções") | A cada execução do teste do DS-508 e durante o modo sombra |
-| Comparar a decisão do motor com a decisão da planilha antes de automatizar o pagamento | Propostas em que motor e planilha concordam ÷ propostas avaliadas no modo sombra **[ALÉM DA FONTE — decisão do usuário: leitura de "comparar com a planilha durante o modo sombra", DS-507]** | Não existe | [A CONFIRMAR: o "critério de avanço da Fase 2", citado no DS-507, não está descrito; meta e período definidos pelo Financeiro com o PO] | Durante o modo sombra, pela exportação |
+**Por que agora:** pagar automaticamente (Fase 4) exige provar antes, sem efeito, que o motor decide como a planilha (ADR-0002).
 
----
+## 3. Objetivo e métrica
 
-## 4. Escopo e fora de escopo
+| Objetivo | Métrica | Linha de base | Meta |
+|---|---|---|---|
+| Rodar as regras sobre propostas reais sem alterá-las | Propostas alteradas após execução | Motor não roda | Zero (DS-508) |
+| Comparar motor × planilha | Concordâncias ÷ avaliadas **[ALÉM DA FONTE — decisão do usuário]** | Não existe | [A CONFIRMAR: "critério de avanço da Fase 2", DS-507] |
 
-### 4.1 Dentro do escopo
+## 4. Não objetivos e fora do escopo
 
-- Executar o motor sobre as propostas elegíveis, no horário agendado e sob demanda (RN01, RN08 · DS-501).
-- Aplicar as regras ativas e vigentes, por prioridade, e definir a decisão final (RN03 a RN05 · DS-503).
-- Registrar cada avaliação de forma auditável (RN07 · DS-504).
-- Mostrar ao Financeiro a lista e o detalhe das avaliações (DS-505, DS-506).
-- Exportar as avaliações em .xlsx (RN09 · DS-507, DS-509).
-- Testar o motor com a tabela de decisão e os exemplos do Anexo I do Doc. V04 (DS-508).
+Não objetivos: reduzir o tempo do Financeiro nesta fase; automatizar o pagamento (PagAuto + API BB, decidido em 09/11/2026; fica por último, `contexto-mestre.md` §10; Fase 4 pela numeração recomendada na §3.1 do insumo e no ADR-0002).
 
-### 4.2 Fora do escopo
+| Fora do escopo | Onde será tratado |
+|---|---|
+| Efeitos: mudar situação/status, e-mail, lote (V04 RF23, RF24, RF2, RF5) e tela de envio ao aprovador | Fase 3, pela numeração da §3.1 de `insumos/quitacao-estado-e-faseamento.md` (recomendação do insumo, marcada lá como além da fonte); o DS-500 corta em "ficam para a Fase" sem o número [A CONFIRMAR] |
+| Pagamento PagAuto + API BB | Fase 4 |
+| Ajustes do teste de 09/11/2026 na tela da Fase 1 | DS-418, sem card |
+| Outras esteiras e situações | Não previsto |
 
-| Item | Motivo | Onde será tratado |
+## 5. Regras de negócio (EARS)
+
+| RN | Regra | Origem |
 |---|---|---|
-| Mudar situação ou status da proposta, enviar e-mail, montar lote (Doc. V04 RF23, RF24, RF2, RF5) | Modo sombra (RN02) | Fase 3, pela numeração do insumo da Quitação, seção 3.1 **[ALÉM DA FONTE — decisão do usuário]**; a descrição do DS-500 está truncada em "ficam para a Fase" |
-| Tela de envio ao aprovador e de controle | Depende dos efeitos do motor | Fase 3 (mesma ressalva) |
-| Pagamento via PagAuto com a API do Banco do Brasil | Decisão de 09/11/2026 e ordem das fases | Fase 4 (ADR-0001 e ADR-0002) |
-| Ajustes da tela Administração de Quitação apontados no teste de 09/11/2026 | Pertencem à Fase 1 | DS-418; hoje sem card (seção 11, D01) |
-| Outras esteiras e outras situações da proposta | Fora da regra RN01 | Não previsto |
+| RN01 | O motor DEVE avaliar só propostas da esteira Cartão Consignado Compra em AND - AGUARD QUITACAO. | DS-501 |
+| RN02 | ENQUANTO em modo sombra, o Konsig NÃO DEVE alterar situação ou status, enviar e-mail ou montar lote. | DS-500, descrição (card criado em 09/11/2026; data da definição não informada; não consta nas decisões do contexto-mestre) |
+| RN03 | QUANDO avaliar uma proposta, o motor DEVE decidir PAGAR, NAO_PAGAR, PAGAR_PARCIAL ou ANALISE_MANUAL, aplicando por validador as regras ativas e vigentes, pela prioridade, sobre o grupo comercial normalizado. | DS-415; DS-503 (V04 RF19.3). Normalização do grupo comercial antes das regras, e o valor normalizado é o usado nas condições (DS-503; V04 ES 3, PC-02; exemplo do card: "KOOPERA MATRIZ" → KOOPERA ASSOCIADOS). Tabela completa e dono [A CONFIRMAR]; combinação dos validadores, V04 §11 [A CONFIRMAR]. Os indicadores do DS-505 não batem com estes 4 resultados (§7) |
+| RN04 | SE a regra estiver inativa, fora da vigência ou com alterações pendentes, ENTÃO o motor DEVE usar a última versão ativada. | DS-503 |
+| RN05 | QUANDO avaliar, o Konsig DEVE gravar registro auditável por proposta e execução (data e hora, valores, resultado por validador, regra e versão, decisão, motivo), sem sobrescrever, sem mudar com a edição da regra, sem edição ou exclusão pela interface. | DS-504 (V04 RF12, RF19.6, RNF 1) |
+| RN06 | SE faltar CPF, valor, consignatária ou boleto, ENTÃO o motor NÃO DEVE aplicar regras e DEVE registrar "Dados ausentes" como motivo da avaliação. | DS-501 (o resto do critério está truncado [A CONFIRMAR]); "Dados ausentes": indicador do DS-505 |
+| RN07 | QUANDO chegar o horário agendado ou o Financeiro acionar "Reavaliar", o motor DEVE executar. | DS-501 (V04 PC-05); horário [A CONFIRMAR] |
+| RN08 | ONDE o perfil não permitir ver o CPF, a tela e a exportação .xlsx DEVEM mascará-lo. | DS-507, DS-509 (V04 RNF 3); perfis e máscara [A CONFIRMAR] |
 
----
+Sem fonte: tempo máximo da execução [A CONFIRMAR]; V04 RNF 4, citado no DS-500 e no DS-505 [A CONFIRMAR].
 
-## 5. Perfis (papéis e responsabilidades)
+## 6. Critérios de aceite
 
-| Perfil | Papel na funcionalidade | O que pode fazer | O que não pode fazer |
-|---|---|---|---|
-| Analista do Financeiro | Usuário da avaliação | Consultar lista e detalhe, acionar "Reavaliar", exportar (DS-501, DS-505, DS-506, DS-507) | Editar ou excluir registro de avaliação (RN07) |
-| Administrador das regras | Mantém as regras na tela da Fase 1 | Nada novo nesta fase | — |
-| Perfis de acesso ao CPF | Definem a máscara exibida e exportada (Doc. V04 RNF 3) | [A CONFIRMAR: perfis e regra de máscara estão no Doc. V04, não recebido] | — |
+Gatilho de dinheiro: um cenário por linha da tabela de decisão (§12). Os identificadores T1–T9 e E1–E4 são definidos aqui e devem ser os mesmos do roteiro do DS-508 **[ALÉM DA FONTE — decisão do usuário]**.
 
----
+```gherkin
+Cenário: T1 proposta elegível avaliada sem efeito (linha 1, RN01, RN02, RN05)
+  Dado uma proposta Cartão Consignado Compra em AND - AGUARD QUITACAO e regras vigentes
+  Quando o motor executa
+  Então o registro tem a decisão final e a situação da proposta não muda
 
-## 6. Fluxo atual × proposto
+Cenário: T2 proposta fora da esteira ou da situação (linha 2, RN01)
+  Dado uma proposta de outra esteira, ou da esteira Cartão Consignado Compra em outra situação
+  Quando o motor executa
+  Então nenhuma avaliação é registrada para ela
 
-### 6.1 Macroetapas
+Cenário: T3 linha 3 da tabela de decisão [A CONFIRMAR, V04 §11]
+  Dado [A CONFIRMAR, V04 §11]
+  Quando o motor executa
+  Então [A CONFIRMAR, V04 §11]
 
-| # | Macroetapa | Hoje (como é feito) | Proposto (o que muda) | Responsável | Dependências |
-|---|---|---|---|---|---|
-| 1 | Captura | O Financeiro baixa o relatório e filtra em planilha | O motor captura as propostas elegíveis (RN01) | Konsig | Regras cadastradas na Fase 1 |
-| 2 | Avaliação | Fórmulas da planilha | Regras parametrizadas, por prioridade (RN03 a RN05) | Konsig | Tabela de decisão do Doc. V04 |
-| 3 | Registro | Sem registro auditável | Registro por proposta e execução (RN07) | Konsig | — |
-| 4 | Conferência | Planilha | Lista, detalhe e exportação para comparar com a planilha | Financeiro | Protótipo do DS-505 |
+Cenário: T4 linha 4 da tabela de decisão [A CONFIRMAR, V04 §11]
+  Dado [A CONFIRMAR, V04 §11]
+  Quando o motor executa
+  Então [A CONFIRMAR, V04 §11]
 
-### 6.2 Diagrama
+Cenário: T5 regra inativa (linha 5, RN04)
+  Dado uma proposta elegível e a regra do validador inativa, com uma versão anterior ativada
+  Quando o motor executa
+  Então o motor aplica a última versão ativada e o registro mostra essa versão
 
-Não elaborado neste exemplo: o BPMN TO-BE da Quitação é responsabilidade do analista de requisitos (`contexto-mestre.md`, seção 10) e não consta no pacote. Protótipo de referência: "Quitação · Avaliação do motor" [A CONFIRMAR: arquivo não recebido].
+Cenário: T6 regra fora da vigência (linha 6, RN04)
+  Dado uma proposta elegível e a regra do validador fora da vigência na data e hora da avaliação
+  Quando o motor executa
+  Então o motor aplica a última versão ativada e o registro mostra essa versão
 
----
+Cenário: T7 regra com alterações pendentes (linha 7, RN04)
+  Dado uma proposta elegível e a regra do validador com "alterações pendentes"
+  Quando o motor executa
+  Então o motor aplica a última versão ativada e o registro mostra essa versão
 
-## 7. Regras de negócio
+Cenário: T8–T9 duas regras no mesmo validador (linhas 8–9, RN03)
+  Dado uma proposta elegível e duas regras vigentes no mesmo validador, com prioridades diferentes
+  Quando o motor executa
+  Então vence a regra de maior prioridade e o registro mostra a regra e a versão aplicadas
 
-| Código | Regra | Origem | Observação |
-|---|---|---|---|
-| RN01 | O motor avalia apenas as propostas da esteira Cartão Consignado Compra na situação AND - AGUARD QUITACAO, e nenhuma outra. | Critério de aceite do DS-501 (linha 1 da tabela de decisão do Doc. V04) | — |
-| RN02 | Na Fase 2 o motor não muda situação nem status da proposta, não envia e-mail e não monta lote (modo sombra). | Escopo registrado no DS-500 (09/11/2026) | Escopo em card, não decisão consolidada do contexto-mestre (insumo, seção 2) |
-| RN03 | O motor aplica somente regras ativas e vigentes na data e hora da avaliação. Regra inativa, fora da vigência ou com "alterações pendentes" usa a última versão ativada. | DS-503 (Doc. V04 RF19.3) | — |
-| RN04 | Antes das regras, o grupo comercial é normalizado, e o valor normalizado é o usado nas condições. | DS-503 (Doc. V04 RN03, ES 3, PC-02) | Tabela de normalização e quem a mantém: [A CONFIRMAR] |
-| RN05 | Dentro de cada validador, as regras são avaliadas pela prioridade. Resultados possíveis por regra: PAGAR, NAO_PAGAR, PAGAR_PARCIAL, ANALISE_MANUAL. | DS-503; resultados da Fase 1 (US-88, DS-415, via insumo, seção 3.2) | Restante do critério truncado; combinação dos validadores na decisão final segue a tabela de decisão do Doc. V04, seção 11 [A CONFIRMAR] |
-| RN06 | Proposta sem CPF, valor, consignatária ou boleto não recebe aplicação de regras. | DS-501 | Restante do critério truncado [A CONFIRMAR] |
-| RN07 | Cada avaliação é registrada por proposta e execução, com data e hora, valores usados, resultado por validador, regra e versão aplicadas, decisão final e motivo. Nova avaliação não sobrescreve a anterior; alterar uma regra não altera o registro gravado; o registro não pode ser editado nem excluído pela interface. | DS-504 (Doc. V04 RF12, RF19.6, RNF 1) | Retenção: [A CONFIRMAR] |
-| RN08 | O motor executa no horário agendado e, sob demanda, pelo acionamento de "Reavaliar" para as propostas filtradas. | DS-501 (Doc. V04 PC-05) | Horário de execução: [A CONFIRMAR] (PC-05 sem descrição nas fontes) |
-| RN09 | A exportação gera .xlsx com os filtros aplicados na tela, colunas na ordem da planilha atual e CPF com a máscara do perfil. | DS-507 e DS-509 (Doc. V04 RF10, RNF 3) | DS-507 inclui um resultado por validador; DS-509 não. Ver seção 11, D02 |
+Cenário: E1 a E4 exemplos do Anexo I [A CONFIRMAR, V04 Anexo I]
+  Dado o exemplo En do Anexo I do V04 (um cenário por exemplo)
+  Quando o motor executa
+  Então a decisão é a do Anexo I [A CONFIRMAR]
 
----
+Cenário: reavaliação não sobrescreve (RN05)
+  Dado uma proposta já avaliada
+  Quando o Financeiro aciona "Reavaliar"
+  Então há um segundo registro e o primeiro continua igual
 
-## 8. Requisitos não funcionais
-
-| Código | Categoria | Requisito (mensurável) | Origem |
-|---|---|---|---|
-| RNF01 | Segurança | Registro de avaliação não editável nem excluível pela interface | DS-504 (Doc. V04 RNF 1) |
-| RNF02 | LGPD | CPF com a máscara do perfil na tela e na exportação | DS-507, DS-509 (Doc. V04 RNF 3) |
-| RNF03 | Desempenho | Tempo máximo da execução agendada e do "Reavaliar": [A CONFIRMAR], depende do volume (seção 2) | Nenhuma fonte define |
-| RNF04 | Disponibilidade e falha | Não se aplica: a Fase 2 não chama serviço externo | — |
-| RNF05 | Manutenibilidade | Um caso de teste por linha da tabela de decisão (1 a 9) e os exemplos 1 a 4 do Anexo I | DS-508 |
-
-O Doc. V04 RNF 4 é citado no DS-500 e no DS-505, sem descrição nas fontes [A CONFIRMAR].
-
----
-
-## 9. Integrações
-
-Não se aplica: a Fase 2 não integra com parceiro nem com outro sistema. A integração com o Banco do Brasil é da Fase 4 (ADR-0001 e ADR-0002).
-
----
-
-## 10. Critérios de aceite
-
-- O motor avalia 100% das propostas da esteira Cartão Consignado Compra em AND - AGUARD QUITACAO e 0 propostas de outras esteiras ou situações (RN01).
-- Após qualquer execução, nenhuma proposta tem situação ou status diferente do anterior à execução (RN02).
-- Toda avaliação gera um registro com os campos da RN07; uma segunda avaliação da mesma proposta gera um segundo registro, e o primeiro permanece igual.
-- O acionamento de "Reavaliar" informa quantas propostas foram avaliadas (DS-501; ver seção 11, D04, sobre o trecho "quantas tiveram alteração de status").
-- A exportação gera arquivo .xlsx com os filtros da tela, as colunas da RN09 e o CPF mascarado conforme o perfil.
-
-### 10.1 Cenários de comportamento (BDD) principais
-
-```
-Cenário: proposta elegível avaliada (caminho feliz)
-  Dado que existe uma proposta da esteira Cartão Consignado Compra na situação AND - AGUARD QUITACAO e há regras vigentes cadastradas
-  Quando o motor é executado
-  Então a avaliação fica registrada com a decisão final e a situação da proposta permanece a mesma
-
-Cenário: proposta em outra situação (alternativo)
-  Dado que existe uma proposta da mesma esteira em situação diferente de AND - AGUARD QUITACAO
-  Quando o motor é executado
-  Então a proposta não é avaliada e nenhum registro é criado para ela
-
-Cenário: regra com alterações pendentes (borda)
-  Dado que a regra de um validador tem alterações pendentes e uma versão anterior ativada
-  Quando o motor avalia uma proposta elegível
-  Então a avaliação usa a última versão ativada e o registro mostra essa versão
-
-Cenário: proposta sem boleto (falha)
-  Dado que uma proposta elegível não tem boleto
-  Quando o motor é executado
-  Então as regras não são aplicadas a ela e o motivo fica visível no registro
+Cenário: proposta sem boleto (RN06)
+  Dado uma proposta elegível sem boleto
+  Quando o motor executa
+  Então as regras não são aplicadas e o registro mostra o motivo "Dados ausentes"
 ```
 
-O último cenário segue a RN06; o que acontece com a proposta depois disso está no trecho truncado do DS-501 [A CONFIRMAR]. Os cenários de teste com massa fictícia ficam nos cards; o DS-508 lista os casos do motor.
+## 7. Perguntas em aberto e aprovação
 
----
+| Pendência | Quem | Até | Bloqueia? |
+|---|---|---|---|
+| V04 anexado ao DS-500 (PC-02, PC-05, RNF 4, D01, D02, tabela §11, Anexo I) | Analista de requisitos | [A CONFIRMAR] | **Sim** |
+| Fase 1 concluída (DS-415 em CODE REVIEW, DS-416 EM DESENVOLVIMENTO) e cards dos ajustes de 09/11/2026 | PO, tech lead | [A CONFIRMAR] | **Sim** |
+| Critério de avanço da Fase 2 (DS-507): é o critério de corte do sombra | PO com Financeiro | Antes dos efeitos | Não |
+| Horário do PC-05 (DS-501) | PO | Refinamento | Não |
+| Duas exportações (DS-507, DS-509; esta "não consta no Documento de Requisitos V04"). Proposta: manter DS-507 **[ALÉM DA FONTE — decisão do usuário]** | PO | [A CONFIRMAR] | Não |
+| Numeração divergente: na Previsão V02 (06/11/2026, C32–C34) o motor é a Fase 3, o pagamento BB a Fase 2 e a tela do aprovador a Fase 4. Este PRD segue a numeração de `insumos/quitacao-estado-e-faseamento.md` §3.1 (motor = 2, efeitos/tela = 3, pagamento = 4) | PO | [A CONFIRMAR] | Não |
+| DS-501 pede "quantas tiveram alteração de status", o que a RN02 proíbe; "Reavaliar" está no DS-501, o botão no DS-505 | PO, tech lead | Refinamento | Não |
+| GDP-76 sem vínculo com US-69, DS-418 e DS-500 | PO | Antes da sprint | Não |
+| Medium no GDP-76, embora prioridade da empresa (`contexto-mestre.md` §10) | PO, ao comitê | — | Não |
+| Corte (go/no-go, tempo máximo, rollback por passo) no Plano DS-500 e ADR do modo sombra: obrigatórios pelo gatilho de dinheiro/migração do kit v2 (`modelos/PRD.md`). O Plano DS-500 ainda não tem seção Corte | Tech lead | Antes da primeira execução em produção | **Sim, antes da primeira execução em produção** |
+| Decisões do DS-505 (Devolução, Dados ausentes, Avaliação manual × Análise manual) divergem dos 4 resultados do DS-415 (PAGAR, NAO_PAGAR, PAGAR_PARCIAL, ANALISE_MANUAL); Devolução (retorno para AGUARDANDO ABERTURA DE CONTA) conflita com a RN02 | PO, tech lead | Refinamento | Sim, para o DS-505 |
+| BPMN TO-BE e protótipo "Quitação · Avaliação do motor" (DS-505) | Analista de requisitos | [A CONFIRMAR] | Não |
 
-## 11. Dependências
+| Versão | Data | Mudança | Aprovação |
+|---|---|---|---|
+| 0.1 | 16/11/2026 | Elaboração (DS-500, DS-501, DS-503 a DS-509) | — |
+| 0.2 | 17/11/2026 | Formato v2 | Pendente: Financeiro, PO, tech lead, DPO |
 
-| Código | O que falta | Quem responde (papel ou área) | Até quando | Bloqueia o caminho principal? |
+## 12. Tabela de decisão
+
+O DS-508 testa "um caso por linha da tabela de decisão" (1 a 9), os exemplos 1 a 4 do Anexo I, o Validador Boleto, casos de borda das regras e a "confirmação de que nenhuma proposta foi alterada após as execuções". Só o que as fontes dizem:
+
+| Linha | Condição | Resultado | Precedência · vigência | Teste |
 |---|---|---|---|---|
-| D01 | Fase 1 concluída (DS-415 em CODE REVIEW, DS-416 EM DESENVOLVIMENTO em 16/11/2026) e cards dos ajustes do teste de 09/11/2026, que não existem no DS-418 | PO e tech lead | [A CONFIRMAR] | Sim (pré-requisito declarado no DS-500) |
-| D02 | Decidir entre DS-507 e DS-509, que entregam quase a mesma exportação (insumo, seção 4.5). Recomendação: manter o DS-507 e levar para ele a origem "decisão da equipe em 09/11/2026", o Doc. V04 RF10 e a finalidade de consulta fora do sistema **[ALÉM DA FONTE — decisão do usuário]** | PO | Antes do refinamento do DS-507 [A CONFIRMAR data] | Não |
-| D03 | "Reavaliar" é critério do DS-501, mas o botão fica na tela do DS-505. Registrar a dependência no DS-501 ou mover o critério para o DS-505 (guia, seção 06) **[ALÉM DA FONTE — decisão do usuário]** | PO e tech lead | Antes do refinamento | Não |
-| D04 | O DS-501 pede informar "quantas tiveram alteração de status", mas a RN02 impede alteração de status. Confirmar se quer dizer "alteração de decisão em relação à avaliação anterior" | PO | Antes do refinamento do DS-501 | Não |
-| D05 | Número da fase que recebe os efeitos (descrição do DS-500 truncada). Recomendação: numeração do insumo (Fase 3 = efeitos) **[ALÉM DA FONTE — decisão do usuário]** | PO | [A CONFIRMAR] | Não |
-| D06 | Documento de Requisitos V04 anexado ao DS-500, com PC-02, PC-05, RNF 4, D01, D02, tabela de decisão e Anexo I | Analista de requisitos | [A CONFIRMAR] | Sim (o DS-508 e a RN05 dependem da tabela de decisão) |
-| D07 | Descrição do critério de avanço da Fase 2 | PO com o Financeiro | Antes do início da Fase 3 | Não |
+| 1 | Esteira e situação elegíveis | Avalia e registra | RN01 | T1 |
+| 2 | Fora da esteira ou situação | Não avalia | RN01 | T2 |
+| 3–4 | [A CONFIRMAR, V04 §11] | Decisão do V04 | [A CONFIRMAR] | T3, T4 |
+| 5 | Regra inativa | Última versão ativada | RN04 | T5 |
+| 6 | Regra fora da vigência | Idem | RN04 | T6 |
+| 7 | Alterações pendentes | Idem; registro mostra a versão | RN04 | T7 |
+| 8–9 | Duas regras no mesmo validador | Vence a de maior prioridade | RN03 | T8–T9 |
+| — | Validador Boleto e casos de borda (DS-508): vencimento vazio, vencido, no dia; código de barras com valor igual, diferente e zerado; dois boletos com um pago; condição com campo vazio; validador sem regra | [A CONFIRMAR, regra do V04 que define o resultado esperado] | [A CONFIRMAR] | Um teste por caso (B1–B9) **[ALÉM DA FONTE — decisão do usuário: identificadores]** |
 
----
+Faixas de linhas: DS-501 (linhas 1 e 2) e DS-503 (linhas 5 a 9), `downstream_16-11.csv` 16/11/2026 10h26. A condição de cada linha dentro da faixa é inferência **[ALÉM DA FONTE — decisão do usuário]** até o V04 §11. Exemplos E1–E4: um teste cada (§6). Imutabilidade (RN05) fora do DS-508 [A CONFIRMAR]; cenários de DS-505, DS-507 e DS-509 não escritos [A CONFIRMAR].
 
-## 12. Tratamento de dados pessoais (LGPD)
-
-| Categoria de dado tratado | Finalidade | Quem acessa (perfil) | Mascaramento ou minimização | Retenção | Compartilhado com terceiro? |
-|---|---|---|---|---|---|
-| CPF do cliente | Identificar a proposta avaliada | Perfis do Financeiro [A CONFIRMAR] | Máscara por perfil na tela e na exportação (RNF02) | [A CONFIRMAR com o DPO] | Não |
-| Dados da proposta (grupo, convênio, consignatária, valor, vencimento) | Aplicar as regras e registrar a avaliação | Perfis do Financeiro | — | Mesma do registro (RN07) [A CONFIRMAR] | Não |
-
-A exportação leva dados da proposta para fora do sistema (DS-509: "consultar as avaliações fora do sistema"). Onde o arquivo pode ser guardado e por quanto tempo: [A CONFIRMAR com o DPO].
-
----
-
-## 13. Riscos
-
-| ID | Risco | Categoria | Probabilidade | Impacto | Mitigação | Dono (papel) |
-|---|---|---|---|---|---|---|
-| R01 | Construção nova no Konsig, sem CI/CD (US-43, Backlog): deploy manual com risco de regressão | Técnico | M | A | Deploy e rollback descritos no Plano, seções 5 e 8 | Tech lead |
-| R02 | Doc. V04 fora do pacote e descrições truncadas: dev e QA sem a tabela de decisão completa | Negócio | A | A | D06 | Analista de requisitos |
-| R03 | Prioridade Medium no GDP-76, embora o projeto seja prioridade da empresa: a demanda perde a vez numa fila ordenada por prioridade | Prazo | M | M | Levar a divergência ao comitê **[ALÉM DA FONTE — decisão do usuário]** | PO |
-
-Probabilidade e impacto são avaliação deste exemplo **[ALÉM DA FONTE — decisão do usuário]**.
-
----
-
-## 14. Tamanho estimado (régua)
-
-| Campo | Valor |
-|---|---|
-| Cards de épico previstos | 8 (DS-501, DS-503 a DS-509; o DS-502 não existe). Com a decisão da D02, podem passar a 7 |
-| Classe | M (5–9) |
-| Referência no Downstream (dias úteis) | 16 típico / 29 conservador |
-| Referência no Upstream (dias úteis) | Não se aplica: o US-69 foi concluído no Upstream em 26/10/2026 |
-| Precisa quebrar antes? | Não |
-
-Fonte: `D1-pool/regua-tamanho-tempo.md`, v1, 16/11/2026. As faixas são proposta, sem decisão do comitê.
-
----
-
-## 15. Rastreabilidade
-
-| Regra ou critério | Item GDP | Item Upstream | Card(s) Downstream | Caso(s) de teste |
-|---|---|---|---|---|
-| RN01, RN06, RN08 | GDP-76 | US-69 | DS-501 | DS-508 (linhas 1 e 2 da tabela de decisão) |
-| RN02 | GDP-76 | US-69 | DS-501 a DS-504 | DS-508 (nenhuma proposta alterada) |
-| RN03, RN04, RN05 | GDP-76 | US-69 | DS-503 | DS-508 (linhas 5 a 9; regras inativa, fora da vigência, com alterações pendentes, prioridades) |
-| RN07, RNF01 | GDP-76 | US-69 | DS-504, DS-506 | [A CONFIRMAR: imutabilidade do registro não listada no DS-508] |
-| RN09, RNF02 | GDP-76 | US-69 | DS-507, DS-509 | Cenários de teste do card [A CONFIRMAR: ainda não escritos] |
-| Lista de avaliações | GDP-76 | US-69 | DS-505 | Cenários de teste do card [A CONFIRMAR] |
-
-Os vínculos GDP-76 ↔ US-69 ↔ DS-500 não existem no Jira em 16/11/2026 (insumo, seção 6).
-
----
-
-## 16. Aprovações
-
-| Papel | Área | Decisão | Data | Observação |
-|---|---|---|---|---|
-| Área solicitante | Financeiro | Pendente | — | Aguarda a versão 0.2, com as dependências D02 a D04 resolvidas |
-| PO | TI | Pendente | — | |
-| Tech lead | TI | Pendente | — | Confirma o sistema (Konsig) e que a Fase 2 não exige ADR novo |
-| Segurança e Conformidade / DPO | TI | Não se aplica | — | A seção 12 não declara compartilhamento com terceiro |
